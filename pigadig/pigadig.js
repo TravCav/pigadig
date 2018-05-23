@@ -1,40 +1,66 @@
-const items = [
-    { name: 'hydrogen', time: 1, dependencies: [] },
-    { name: 'helium', time: 1, dependencies: [] },
-    { name: 'oxygen', time: 1, dependencies: [] },
-    { name: 'water', time: 10, dependencies: [{item: "hydrogen", qty: 2}, {item: "oxygen", qty: 1}] },
-    
+const items = [{
+        name: 'hydrogen',
+        time: 1,
+        dependencies: []
+    },
+    {
+        name: 'helium',
+        time: 1,
+        dependencies: []
+    },
+    {
+        name: 'oxygen',
+        time: 1,
+        dependencies: []
+    },
+    {
+        name: 'water',
+        time: 10,
+        dependencies: [{
+            item: "hydrogen",
+            qty: 2
+        }, {
+            item: "oxygen",
+            qty: 1
+        }]
+    },
+
 ];
 
 var inventory = [];
 var gathering = false;
 var timeSpent = 0;
 
-function AddToInventory(newItem){
+function AddToInventory(newItem) {
     let alreadyHave = false;
     inventory.forEach(item => {
-        if(item.name == newItem.name){
+        if (item.name == newItem.name) {
             item.qty++;
             alreadyHave = true;
         }
     });
 
-    if(!alreadyHave){
-        inventory.push({name: newItem.name, qty: 1});
+    if (!alreadyHave) {
+        inventory.push({
+            name: newItem.name,
+            qty: 1
+        });
     }
 }
 
-function RemoveFromInventory(removeItem){
-    console.log("remove: ", removeItem)
-    for(let index = 0; index < inventory.length; index++) {
+function RemoveDependencyFromInventory(dependency) {
+    ////console.log("remove: ", dependency);
+    for (let index = 0; index < inventory.length; index++) {
         let item = inventory[index];
-        if(item.item == removeItem.name) {
-            if(item.qty > 0){
-                item.qty--;
-                console.log("item quantity: ", item.qty);
+        if (item.name == dependency.item) {
+            if (item.qty >= dependency.qty) {
+                item.qty -= dependency.qty;
+                if (item.qty === 0) {
+                    // that was the last one.
+                    inventory.splice(index, 1);
+                }
             } else {
-                console.log('meh');
-                inventory.splice(1, 1);
+                console.log("don't have enough of those.");
             }
         }
     }
@@ -43,7 +69,7 @@ function RemoveFromInventory(removeItem){
 function LookupItem(itemName) {
     for (let index = 0; index < items.length; index++) {
         const item = items[index];
-        if(item.name === itemName) {
+        if (item.name === itemName) {
             return item;
         }
     }
@@ -60,40 +86,36 @@ function MakeItem(itemName) {
         let missingItems = false;
         // can we meet the requirements
         item.dependencies.forEach(dependency => {
-            missingItems |= !HaveEnough(dependency);            
+            missingItems |= !HaveEnough(dependency);
         });
 
-        if(!missingItems)
-        {
+        ////console.log("Has All Items: ", !missingItems);
+        if (!missingItems) {
             item.dependencies.forEach(dependency => {
-                ConsumeItem(dependency);            
+                RemoveDependencyFromInventory(dependency);
             });
+
+            canMakeItem = true;
         }
-        
-        console.log("Has All Items: ", !missingItems);
     }
 
     // We meet the requirements. Make the Item.
-    ////console.log('Making: ', item.name);
-    timeSpent += item.time;
-    AddToInventory(item);
-}
-
-function ConsumeItem(dependency)
-{
-    const item = RemoveFromInventory(dependency.item);
-    console.log("Used " + dependency.item + " from inventory.");
+    if (canMakeItem) {
+        ////console.log('Making: ', item.name);
+        timeSpent += item.time;
+        AddToInventory(item);
+    }
 }
 
 function HaveEnough(dependency) {
     ////console.log("checking for: ", dependency);
     let haveEnough = false;
-    
+
     inventory.forEach(item => {
         ////console.log(item.name, dependency.item);
-        if(item.name === dependency.item) {
+        if (item.name === dependency.item) {
             ////console.log("has " + item.qty + " " + item.name);
-            if(item.qty < dependency.qty) {
+            if (item.qty < dependency.qty) {
                 console.log("need " + (dependency.qty - item.qty) + " more " + dependency.item);
             } else {
                 haveEnough = true;
