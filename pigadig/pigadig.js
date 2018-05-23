@@ -50,6 +50,7 @@ function AddToInventory(newItem, qty) {
 }
 
 function DeconstructItem(itemName) {
+  console.log('You attempt to break apart ' + itemName);
   const item = LookupItem(itemName);
 
   if (item.dependencies.length > 0) {
@@ -60,8 +61,9 @@ function DeconstructItem(itemName) {
       });
 
       player.timeSpent += item.time / 2;
+      console.log('You are successful and store the parts in your bag.');
     } else {
-      console.log('You dig around in your pockets but, can\'t seem to find any ' + itemName);
+      console.log('Turns out you didn\'t have any ' + itemName + ' to break apart anyway.');
     }
   } else {
     console.log("You try to break it but, nothing happens.");
@@ -106,6 +108,7 @@ function LookupItem(itemName) {
 }
 
 function MakeItem(itemName) {
+  console.log('You set out to make ' + itemName);
   const item = LookupItem(itemName);
   let canMakeItem = false;
 
@@ -130,9 +133,11 @@ function MakeItem(itemName) {
 
   // We meet the requirements. Make the Item.
   if (canMakeItem) {
-    console.log('After a bit of work you make ', item.name);
+    console.log('After a bit of work you make ' + item.name);
     player.timeSpent += item.time;
     AddToInventory(item, 1);
+  } else {
+    console.log('Realizing you don\'t have the parts you need, you hang your head in shame.');
   }
 }
 
@@ -160,7 +165,7 @@ function RemoveItemsFromInventory(itemName, qty) {
 
 console.log("And here our adventure begins...");
 
-for (let index = 0; index < 10; index++) {
+for (let index = 0; index < 1; index++) {
   GoAdventuring();
 }
 
