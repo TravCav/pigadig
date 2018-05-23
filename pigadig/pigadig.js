@@ -24,13 +24,16 @@ function AddToInventory(newItem){
     }
 }
 
-function RemoveFromInventory(newItem){
+function RemoveFromInventory(removeItem){
+    console.log("remove: ", removeItem)
     for(let index = 0; index < inventory.length; index++) {
         let item = inventory[index];
-        if(item.name == newItem.name) {
+        if(item.item == removeItem.name) {
             if(item.qty > 0){
                 item.qty--;
+                console.log("item quantity: ", item.qty);
             } else {
+                console.log('meh');
                 inventory.splice(1, 1);
             }
         }
@@ -59,6 +62,13 @@ function MakeItem(itemName) {
         item.dependencies.forEach(dependency => {
             missingItems |= !HaveEnough(dependency);            
         });
+
+        if(!missingItems)
+        {
+            item.dependencies.forEach(dependency => {
+                ConsumeItem(dependency);            
+            });
+        }
         
         console.log("Has All Items: ", !missingItems);
     }
@@ -67,6 +77,12 @@ function MakeItem(itemName) {
     ////console.log('Making: ', item.name);
     timeSpent += item.time;
     AddToInventory(item);
+}
+
+function ConsumeItem(dependency)
+{
+    const item = RemoveFromInventory(dependency.item);
+    console.log("Used " + dependency.item + " from inventory.");
 }
 
 function HaveEnough(dependency) {
