@@ -119,7 +119,6 @@ function MakeItem(itemName) {
       missingItems |= !HaveEnough(dependency);
     });
 
-    ////console.log("Has All Items: ", !missingItems);
     if (!missingItems) {
       item.dependencies.forEach(dependency => {
         RemoveItemsFromInventory(dependency.item, dependency.qty);
@@ -131,7 +130,7 @@ function MakeItem(itemName) {
 
   // We meet the requirements. Make the Item.
   if (canMakeItem) {
-    ////console.log('Making: ', item.name);
+    console.log('After a bit of work you make ', item.name);
     player.timeSpent += item.time;
     AddToInventory(item, 1);
   }
