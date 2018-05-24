@@ -1,38 +1,67 @@
 const items = [{
-    name: "hydrogen",
-    time: 1,
-    dependencies: []
+  name: "hydrogen",
+  time: 1,
+  dependencies: []
+},
+{
+  name: "helium",
+  time: 1,
+  dependencies: []
+},
+{
+  name: "oxygen",
+  time: 1,
+  dependencies: []
+},
+{
+  name: "water",
+  time: 10,
+  dependencies: [{
+    item: "hydrogen",
+    qty: 2
   },
   {
-    name: "helium",
-    time: 1,
-    dependencies: []
-  },
-  {
-    name: "oxygen",
-    time: 1,
-    dependencies: []
-  },
-  {
-    name: "water",
-    time: 10,
-    dependencies: [{
-        item: "hydrogen",
-        qty: 2
-      },
-      {
-        item: "oxygen",
-        qty: 1
-      }
-    ]
+    item: "oxygen",
+    qty: 1
   }
+  ]
+}
 ];
+
+//stuff you can encounter in adventure
+const entities = [{
+  name: "guineapig",
+  time: 1,
+  dropitems: []
+},
+{
+  name: "flower",
+  time: 1,
+  dropitems: []
+},
+{
+  name: "potato",
+  time: 1,
+  dropitems: []
+},
+{
+  name: "river",
+  time: 5,
+  dropitems: [{
+    item: "water",
+    qty: 2
+  }
+  ]
+}
+];
+
 let player = {
   inventory: [],
   timeSpent: 0
 };
 
-function AddToInventory(newItem, qty) {
+function AddToInventory(itemName, qty) {
+  const newItem = LookupItem(itemName);
   let alreadyHave = false;
   player.inventory.forEach(item => {
     if (item.name == newItem.name) {
@@ -57,7 +86,7 @@ function DeconstructItem(itemName) {
     let itemRemoved = RemoveItemsFromInventory(itemName, 1);
     if (itemRemoved) {
       item.dependencies.forEach(dependency => {
-        AddToInventory(LookupItem(dependency.item), dependency.qty);
+        AddToInventory(dependency.item, dependency.qty);
       });
 
       player.timeSpent += item.time / 2;
@@ -70,11 +99,34 @@ function DeconstructItem(itemName) {
   }
 }
 
+//Adventure activity in which you encounter an object
+function GetEncounter() {
+  let entity = GetEntity();
+  console.log("You encounter a ", entity);
+  Fight(entity);
+
+  entity.dropitems.forEach(dropitem => {
+    AddToInventory(dropitem.item, dropitem.qty);
+  });
+}
+
 function GoAdventuring() {
   const randomItem = items[Math.floor(Math.random() * items.length)];
-  AddToInventory(randomItem, 1);
+  AddToInventory(randomItem.name, 1);
   player.timeSpent += 10;
+  GetEncounter();
   console.log('You wander aimlessly, but find no adventuring to be had. You did happen to find some ' + randomItem.name + ' though.');
+}
+
+//returns a random object for the encounter
+function GetEntity() {
+  const randomEntity = entities[Math.floor(Math.random() * entities.length)];
+  return randomEntity;
+}
+
+//action taken against an entity in an encounter
+function Fight(entity) {
+  console.log("You fight the", entity);
 }
 
 function HaveEnough(dependency) {
@@ -135,7 +187,7 @@ function MakeItem(itemName) {
   if (canMakeItem) {
     console.log('After a bit of work you make ' + item.name);
     player.timeSpent += item.time;
-    AddToInventory(item, 1);
+    AddToInventory(item.name, 1);
   } else {
     console.log('Realizing you don\'t have the parts you need, you hang your head in shame.');
   }
@@ -165,7 +217,7 @@ function RemoveItemsFromInventory(itemName, qty) {
 
 console.log("And here our adventure begins...");
 
-for (let index = 0; index < 1; index++) {
+for (let index = 0; index < 10; index++) {
   GoAdventuring();
 }
 
