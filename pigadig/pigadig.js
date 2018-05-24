@@ -1,58 +1,57 @@
 const items = [{
-  name: "hydrogen",
-  time: 1,
-  dependencies: []
-},
-{
-  name: "helium",
-  time: 1,
-  dependencies: []
-},
-{
-  name: "oxygen",
-  time: 1,
-  dependencies: []
-},
-{
-  name: "water",
-  time: 10,
-  dependencies: [{
-    item: "hydrogen",
-    qty: 2
+    name: "hydrogen",
+    time: 1,
+    dependencies: []
   },
   {
-    item: "oxygen",
-    qty: 1
+    name: "helium",
+    time: 1,
+    dependencies: []
+  },
+  {
+    name: "oxygen",
+    time: 1,
+    dependencies: []
+  },
+  {
+    name: "water",
+    time: 10,
+    dependencies: [{
+        item: "hydrogen",
+        qty: 2
+      },
+      {
+        item: "oxygen",
+        qty: 1
+      }
+    ]
   }
-  ]
-}
 ];
 
 //stuff you can encounter in adventure
 const entities = [{
-  name: "guineapig",
-  time: 1,
-  dropitems: []
-},
-{
-  name: "flower",
-  time: 1,
-  dropitems: []
-},
-{
-  name: "potato",
-  time: 1,
-  dropitems: []
-},
-{
-  name: "river",
-  time: 5,
-  dropitems: [{
-    item: "water",
-    qty: 2
+    name: "guineapig",
+    time: 1,
+    dropitems: []
+  },
+  {
+    name: "flower",
+    time: 1,
+    dropitems: []
+  },
+  {
+    name: "potato",
+    time: 1,
+    dropitems: []
+  },
+  {
+    name: "river",
+    time: 5,
+    dropitems: [{
+      item: "water",
+      qty: 2
+    }]
   }
-  ]
-}
 ];
 
 let player = {
@@ -111,6 +110,13 @@ function GetEncounter() {
 }
 
 function GoAdventuring() {
+  /*
+  Kill quest
+  Delivery quest
+  Gather quest
+  Escort quest
+  */
+
   const randomItem = items[Math.floor(Math.random() * items.length)];
   AddToInventory(randomItem.name, 1);
   player.timeSpent += 10;
