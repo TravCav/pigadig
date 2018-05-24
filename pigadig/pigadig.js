@@ -1,4 +1,5 @@
-const items = [{
+const items = [
+  {
     name: "hydrogen",
     time: 1,
     dependencies: []
@@ -16,7 +17,8 @@ const items = [{
   {
     name: "water",
     time: 10,
-    dependencies: [{
+    dependencies: [
+      {
         item: "hydrogen",
         qty: 2
       },
@@ -29,7 +31,8 @@ const items = [{
 ];
 
 //stuff you can encounter in adventure
-const entities = [{
+const entities = [
+  {
     name: "guineapig",
     time: 1,
     dropitems: []
@@ -45,12 +48,14 @@ const entities = [{
     dropitems: []
   },
   {
-    name: "river",
+    name: "watermelone",
     time: 5,
-    dropitems: [{
-      item: "water",
-      qty: 2
-    }]
+    dropitems: [
+      {
+        item: "water",
+        qty: 2
+      }
+    ]
   }
 ];
 
@@ -78,7 +83,7 @@ function AddToInventory(itemName, qty) {
 }
 
 function DeconstructItem(itemName) {
-  console.log('You attempt to break apart ' + itemName);
+  console.log("You attempt to break apart " + itemName);
   const item = LookupItem(itemName);
 
   if (item.dependencies.length > 0) {
@@ -89,9 +94,11 @@ function DeconstructItem(itemName) {
       });
 
       player.timeSpent += item.time / 2;
-      console.log('You are successful and store the parts in your bag.');
+      console.log("You are successful and store the parts in your bag.");
     } else {
-      console.log('Turns out you didn\'t have any ' + itemName + ' to break apart anyway.');
+      console.log(
+        "Turns out you didn't have any " + itemName + " to break apart anyway."
+      );
     }
   } else {
     console.log("You try to break it but, nothing happens.");
@@ -100,8 +107,8 @@ function DeconstructItem(itemName) {
 
 //Adventure activity in which you encounter an object
 function GetEncounter() {
-  let entity = GetEntity();
-  console.log("You encounter a ", entity);
+  let entity = GetRandomEntity();
+  console.log("You encounter a", entity.name);
   Fight(entity);
 
   entity.dropitems.forEach(dropitem => {
@@ -110,29 +117,42 @@ function GetEncounter() {
 }
 
 function GoAdventuring() {
-  /*
-  Kill quest
-  Delivery quest
-  Gather quest
-  Escort quest
-  */
-
-  const randomItem = items[Math.floor(Math.random() * items.length)];
-  AddToInventory(randomItem.name, 1);
-  player.timeSpent += 10;
-  GetEncounter();
-  console.log('You wander aimlessly, but find no adventuring to be had. You did happen to find some ' + randomItem.name + ' though.');
+  switch (Math.floor(Math.random() * 2)) {
+    case 0:
+      // Kill quest
+      GetEncounter();
+      break;
+    case 1:
+      // Delivery quest
+      break;
+    case 2:
+      // Gather quest
+      break;
+    case 3:
+      // Escort quest
+      break;
+    default:
+      const randomItem = items[Math.floor(Math.random() * items.length)];
+      AddToInventory(randomItem.name, 1);
+      player.timeSpent += 5;
+      console.log(
+        "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
+          randomItem.name +
+          " though."
+      );
+      break;
+  }
 }
 
 //returns a random object for the encounter
-function GetEntity() {
-  const randomEntity = entities[Math.floor(Math.random() * entities.length)];
-  return randomEntity;
+function GetRandomEntity() {
+  return entities[Math.floor(Math.random() * entities.length)];
 }
 
 //action taken against an entity in an encounter
 function Fight(entity) {
-  console.log("You fight the", entity);
+  console.log("You fight the", entity.name);
+  player.timeSpent += 10;
 }
 
 function HaveEnough(dependency) {
@@ -166,7 +186,7 @@ function LookupItem(itemName) {
 }
 
 function MakeItem(itemName) {
-  console.log('You set out to make ' + itemName);
+  console.log("You set out to make " + itemName);
   const item = LookupItem(itemName);
   let canMakeItem = false;
 
@@ -191,11 +211,13 @@ function MakeItem(itemName) {
 
   // We meet the requirements. Make the Item.
   if (canMakeItem) {
-    console.log('After a bit of work you make ' + item.name);
+    console.log("After a bit of work you make " + item.name);
     player.timeSpent += item.time;
     AddToInventory(item.name, 1);
   } else {
-    console.log('Realizing you don\'t have the parts you need, you hang your head in shame.');
+    console.log(
+      "Realizing you don't have the parts you need, you hang your head in shame."
+    );
   }
 }
 
@@ -208,7 +230,6 @@ function RemoveItemsFromInventory(itemName, qty) {
         if (item.qty === 0) {
           // that was the last one.
           player.inventory.splice(index, 1);
-
         }
 
         return true;
