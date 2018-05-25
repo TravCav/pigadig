@@ -1,5 +1,4 @@
-const items = [
-  {
+const items = [{
     name: "hydrogen",
     time: 1,
     dependencies: []
@@ -17,8 +16,7 @@ const items = [
   {
     name: "water",
     time: 10,
-    dependencies: [
-      {
+    dependencies: [{
         item: "hydrogen",
         qty: 2
       },
@@ -31,38 +29,63 @@ const items = [
 ];
 
 //stuff you can encounter in adventure
-const entities = [
-  {
+const entities = [{
     name: "guineapig",
-    time: 1,
+    hp: 1,
     dropitems: []
   },
   {
     name: "flower",
-    time: 1,
+    hp: 1,
     dropitems: []
   },
   {
     name: "potato",
-    time: 1,
+    hp: 1,
     dropitems: []
   },
   {
     name: "watermelone",
-    time: 5,
-    dropitems: [
-      {
-        item: "water",
-        qty: 2
-      }
-    ]
+    hp: 5,
+    dropitems: [{
+      item: "water",
+      qty: 2
+    }]
   }
 ];
 
-let player = {
-  inventory: [],
-  timeSpent: 0
-};
+class Entity {
+  constructor(parameters) {
+    this.name = parameters.name;
+    this.hp = parameters.hp;
+    this.dropitems = parameters.dropitems || [];
+    this.inventory = [];
+    this.timeSpent = 0;
+    this.attacks = [{
+      name: "BasicAttack",
+      damage: 1,
+      description: "a punch"
+    }];
+  }
+
+  Attack(entity, attack) {
+    console.log(this.name + " attacks " + entity.name + " with " + attack.description);
+    this.timeSpent++;
+    entity.TakeDamage(attack);
+  }
+
+  TakeDamage(attack) {
+    this.hp -= attack.damage;
+    if (this.hp <= 0) {
+      console.log(this.name + ' has died to death.');
+    }
+  }
+}
+
+let player = new Entity({
+  name: "player",
+  hp: 10
+});
 
 function AddToInventory(itemName, qty) {
   const newItem = LookupItem(itemName);
@@ -116,53 +139,75 @@ function GetEncounter() {
   });
 }
 
+function GetRandomItem() {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function D20() {
+  return Math.floor(Math.random() * 20) + 1;
+}
+
 function GoAdventuring() {
-  switch (Math.floor(Math.random() * 2)) {
+  switch (Math.floor(Math.random() * 5)) {
     case 0:
       // Kill quest
       GetEncounter();
       break;
     case 1:
       // Delivery quest
+      console.log('Nameless NPC needs ' + GetRandomItem().name + ' to be delivered.');
+      if (D20() < 5) {
+        console.log('The delivery is not as uneventful as you had hoped.');
+        GetEncounter();
+      }
+
+      if (player.hp <= 0) {
+        return;
+      }
+      console.log('You make the delivery and Nameless NPC is grateful.');
       break;
     case 2:
       // Gather quest
+      console.log('Nothing needs gathered.');
       break;
     case 3:
       // Escort quest
+      console.log('Nothing needs escorted.');
       break;
     default:
-      const randomItem = items[Math.floor(Math.random() * items.length)];
+      let randomItem = GetRandomItem();
       AddToInventory(randomItem.name, 1);
       player.timeSpent += 5;
-      console.log(
-        "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
-          randomItem.name +
-          " though."
-      );
+      console.log("You wander aimlessly, but find no adventuring to be had. You did happen to find some " + randomItem.name + " though.");
       break;
   }
 }
 
 //returns a random object for the encounter
 function GetRandomEntity() {
-  return entities[Math.floor(Math.random() * entities.length)];
+  return new Entity(entities[Math.floor(Math.random() * entities.length)]);
 }
 
 //action taken against an entity in an encounter
 function Fight(entity) {
   console.log("You fight the", entity.name);
-  player.timeSpent += 10;
+
+  while (player.hp > 0 && entity.hp > 0) {
+    let playerAttack = player.attacks[Math.floor(Math.random() * player.attacks.length)];
+    player.Attack(entity, playerAttack);
+
+    if (entity.hp > 0) {
+      let entityAttack = entity.attacks[Math.floor(Math.random() * entity.attacks.length)];
+      entity.Attack(player, entityAttack);
+    }
+  }
 }
 
 function HaveEnough(dependency) {
-  ////console.log("checking for: ", dependency);
   let haveEnough = false;
 
   player.inventory.forEach(item => {
-    ////console.log(item.name, dependency.item);
     if (item.name === dependency.item) {
-      ////console.log("has " + item.qty + " " + item.name);
       if (item.qty < dependency.qty) {
         console.log(
           "need " + (dependency.qty - item.qty) + " more " + dependency.item
@@ -244,17 +289,12 @@ function RemoveItemsFromInventory(itemName, qty) {
 
 console.log("And here our adventure begins...");
 
-for (let index = 0; index < 10; index++) {
+while (player.hp > 0) {
   GoAdventuring();
 }
 
-// // MakeItem("hydrogen");
-// // MakeItem("hydrogen");
-// // MakeItem("oxygen");
-MakeItem("water");
+// // MakeItem("water");
+// // DeconstructItem("water");
 
-DeconstructItem("water");
-
-console.log("Finished with: \r\n", player.inventory);
-console.log("Time Spent: ", player.timeSpent);
+console.log("Finished with: \r\n", player);
 console.log("Farewell");
