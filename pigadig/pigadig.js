@@ -1,5 +1,4 @@
-const items = [
-  {
+const items = [{
     name: "hydrogen",
     time: 1,
     dependencies: []
@@ -17,8 +16,7 @@ const items = [
   {
     name: "water",
     time: 10,
-    dependencies: [
-      {
+    dependencies: [{
         item: "hydrogen",
         qty: 2
       },
@@ -27,7 +25,7 @@ const items = [
         qty: 1
       }
     ],
-    effect: function(entity) {
+    effect: function (entity) {
       entity.hp++;
       console.log('You feel a little refreshed.');
     }
@@ -35,8 +33,7 @@ const items = [
 ];
 
 //stuff you can encounter in adventure
-const entities = [
-  {
+const entities = [{
     name: "guineapig",
     hp: 1,
     dropitems: [],
@@ -59,12 +56,10 @@ const entities = [
   {
     name: "watermelone",
     hp: 5,
-    dropitems: [
-      {
-        item: "water",
-        qty: 2
-      }
-    ]
+    dropitems: [{
+      item: "water",
+      qty: 2
+    }]
   }
 ];
 
@@ -75,13 +70,11 @@ class Entity {
     this.dropitems = parameters.dropitems || [];
     this.inventory = [];
     this.timeSpent = 0;
-    this.attacks = parameters.attacks || [
-      {
-        name: "melee",
-        damage: 1,
-        description: "a basic attack"
-      }
-    ];
+    this.attacks = parameters.attacks || [{
+      name: "melee",
+      damage: 1,
+      description: "a basic attack"
+    }];
   }
 
   AddToInventory(itemName, qty) {
@@ -118,7 +111,7 @@ class Entity {
       let itemRemoved = this.RemoveItemsFromInventory(itemName, 1);
       if (itemRemoved) {
         item.dependencies.forEach(dependency => {
-          AddToInventory(dependency.item, dependency.qty);
+          this.AddToInventory(dependency.item, dependency.qty);
         });
 
         player.timeSpent += item.time / 2;
@@ -126,8 +119,8 @@ class Entity {
       } else {
         console.log(
           "Turns out you didn't have any " +
-            itemName +
-            " to break apart anyway."
+          itemName +
+          " to break apart anyway."
         );
       }
     } else {
@@ -163,7 +156,7 @@ class Entity {
       let missingItems = false;
       // can we meet the requirements
       item.dependencies.forEach(dependency => {
-        missingItems |= !HasItems(dependency.item, dependency.qty);
+        missingItems |= !this.HasItems(dependency.item, dependency.qty);
       });
 
       if (!missingItems) {
@@ -284,8 +277,8 @@ function GoAdventuring() {
       player.timeSpent += 5;
       console.log(
         "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
-          randomItem.name +
-          " though."
+        randomItem.name +
+        " though."
       );
       break;
   }
@@ -327,8 +320,11 @@ function LookupItem(itemName) {
 console.log("And here our adventure begins...");
 
 while (player.hp > 0) {
-  if (player.hp < 5) {
+
+  while (player.hp < 10 && player.HasItems('water', 1)) {
     player.UseItem("water");
+    //player.MakeItem('water');
+    //player.DeconstructItem('water');
   }
 
   GoAdventuring();
