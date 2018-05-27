@@ -1,21 +1,23 @@
 const items = [{
     name: "hydrogen",
-    time: 1,
-    dependencies: []
+    value: 1
   },
   {
     name: "helium",
-    time: 1,
-    dependencies: []
+    value: 1
   },
   {
     name: "oxygen",
-    time: 1,
-    dependencies: []
+    value: 1
+  },
+  {
+    name: "coin",
+    value: 1
   },
   {
     name: "water",
-    time: 10,
+    craftTime: 10,
+    value: 3,
     dependencies: [{
         item: "hydrogen",
         qty: 2
@@ -64,6 +66,7 @@ const entities = [{
     }]
   }
 ];
+
 const msgTypes = {
   none: 0,
   quest: 1,
@@ -72,7 +75,7 @@ const msgTypes = {
   itemEffect: 8
 };
 
-const outputs = msgTypes.fight | msgTypes.quest; // | msgTypes.attacks;
+const outputs = msgTypes.fight | msgTypes.quest; // | msgTypes.attacks | msgTypes.itemEffects;
 
 const canOutput = function (type) {
   return ((outputs & type) === type);
@@ -81,6 +84,7 @@ const canOutput = function (type) {
 class Entity {
   constructor(parameters) {
     this.name = parameters.name;
+    this.maxHp = parameters.hp;
     this.hp = parameters.hp;
     this.dropitems = parameters.dropitems || [];
     this.inventory = [];
@@ -90,24 +94,6 @@ class Entity {
       damage: 1,
       description: "a basic attack"
     }];
-  }
-
-  AddToInventory(itemName, qty) {
-    const newItem = LookupItem(itemName);
-    let alreadyHave = false;
-    player.inventory.forEach(item => {
-      if (item.name == newItem.name) {
-        item.qty += qty;
-        alreadyHave = true;
-      }
-    });
-
-    if (!alreadyHave) {
-      player.inventory.push({
-        name: newItem.name,
-        qty: qty
-      });
-    }
   }
 
   Attack(entity, attack) {
@@ -128,10 +114,10 @@ class Entity {
       let itemRemoved = this.RemoveItemsFromInventory(itemName, 1);
       if (itemRemoved) {
         item.dependencies.forEach(dependency => {
-          this.AddToInventory(dependency.item, dependency.qty);
+          GiveItems(this, dependency.item, dependency.qty);
         });
 
-        player.timeSpent += item.time / 2;
+        player.timeSpent += item.craftTime / 2;
         console.log("You are successful and store the parts in your bag.");
       } else {
         console.log(
@@ -165,7 +151,7 @@ class Entity {
     let canMakeItem = false;
 
     // does it have any requirements
-    if (item.dependencies.length > 0) {
+    if (item.dependencies != undefined && item.dependencies.length > 0) {
       let missingItems = false;
       // can we meet the requirements
       item.dependencies.forEach(dependency => {
@@ -184,8 +170,8 @@ class Entity {
     // We meet the requirements. Make the Item.
     if (canMakeItem) {
       console.log("After a bit of work you make " + item.name);
-      player.timeSpent += item.time;
-      this.AddToInventory(item.name, 1);
+      this.timeSpent += item.craftTime;
+      GiveItems(this, item.name, 1);
     } else {
       console.log(
         "Realizing you don't have the parts you need, you hang your head in shame."
@@ -214,6 +200,25 @@ class Entity {
     }
   }
 
+  SellItem(itemName) {
+    const item = LookupItem(itemName);
+    if (this.HasItems(itemName, 1)) {
+      this.RemoveItemsFromInventory(itemName, 1);
+      GiveItems(this, 'coin', item.value);
+    }
+  }
+
+  BuyItem(itemName) {
+    const item = LookupItem(itemName);
+    if (this.HasItems('coin', item.value)) {
+      this.RemoveItemsFromInventory('coin', item.value);
+      GiveItems(this, itemName, 1);
+      console.log('You bought a ' + item.name);
+    } else {
+      console.log('You don\'t have enough coin.');
+    }
+  }
+
   TakeDamage(attack) {
     this.hp -= attack.damage;
     if (this.hp <= 0) {
@@ -236,63 +241,73 @@ let player = new Entity({
   hp: 10
 });
 
+function D20() {
+  return Math.floor(Math.random() * 20) + 1;
+}
+
 //Adventure activity in which you encounter an object
-function GetEncounter() {
+function FightSomething() {
   let entity = GetRandomEntity();
   console.log("You encounter a", entity.name);
   Fight(entity);
 
   entity.dropitems.forEach(dropitem => {
-    player.AddToInventory(dropitem.item, dropitem.qty);
+    GiveItems(player, dropitem.item, dropitem.qty);
   });
+}
+
+function DeliveryQuest() {
+  console.log(
+    "Nameless NPC needs " + GetRandomItem().name + " to be delivered."
+  );
+
+  if (D20() < 5) {
+    console.log("The delivery is not as uneventful as you had hoped.");
+    FightSomething();
+  }
+
+  if (player.hp <= 0) {
+    return;
+  }
+
+  console.log("You make the delivery and Nameless NPC is grateful.");
+}
+
+function WanderAbout() {
+  let randomItem = GetRandomItem();
+  GiveItems(player, randomItem.name, 1);
+  player.timeSpent += 5;
+  console.log(
+    "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
+    randomItem.name +
+    " though."
+  );
 }
 
 function GetRandomItem() {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function D20() {
-  return Math.floor(Math.random() * 20) + 1;
-}
-
 function GoAdventuring() {
   switch (Math.floor(Math.random() * 3)) {
     case 0:
       // Kill quest
-      GetEncounter();
+      FightSomething();
       break;
     case 1:
       // Delivery quest
-      console.log(
-        "Nameless NPC needs " + GetRandomItem().name + " to be delivered."
-      );
-      if (D20() < 5) {
-        console.log("The delivery is not as uneventful as you had hoped.");
-        GetEncounter();
-      }
-
-      if (player.hp <= 0) {
-        return;
-      }
-      console.log("You make the delivery and Nameless NPC is grateful.");
+      DeliveryQuest();
       break;
-    // // case 2:
-    // //   // Gather quest
-    // //   console.log("Nothing needs gathered.");
-    // //   break;
-    // // case 3:
-    // //   // Escort quest
-    // //   console.log("Nothing needs escorted.");
-    // //   break;
+      // // case 2:
+      // //   // Gather quest
+      // //   console.log("Nothing needs gathered.");
+      // //   break;
+      // // case 3:
+      // //   // Escort quest
+      // //   console.log("Nothing needs escorted.");
+      // //   break;
     default:
-      let randomItem = GetRandomItem();
-      player.AddToInventory(randomItem.name, 1);
-      player.timeSpent += 5;
-      console.log(
-        "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
-        randomItem.name +
-        " though."
-      );
+      WanderAbout();
       break;
   }
 }
@@ -301,6 +316,25 @@ function GoAdventuring() {
 function GetRandomEntity() {
   return new Entity(entities[Math.floor(Math.random() * entities.length)]);
 }
+
+function GiveItems(entity, itemName, qty) {
+  const newItem = LookupItem(itemName);
+  let alreadyHave = false;
+  entity.inventory.forEach(item => {
+    if (item.name == newItem.name) {
+      item.qty += qty;
+      alreadyHave = true;
+    }
+  });
+
+  if (!alreadyHave) {
+    entity.inventory.push({
+      name: newItem.name,
+      qty: qty
+    });
+  }
+}
+
 
 //action taken against an entity in an encounter
 function Fight(entity) {
@@ -332,17 +366,35 @@ function LookupItem(itemName) {
 
 console.log("And here our adventure begins...");
 
-while (player.hp > 0) {
-  while (player.HasItems('hydrogen', 2) && player.HasItems('oxygen', 1)) {
-    player.MakeItem('water');
-  }
+// // while (player.hp > 0) {
+// //   while (player.HasItems('hydrogen', 2) && player.HasItems('oxygen', 1)) {
+// //     player.MakeItem('water');
+// //   }
 
-  while (player.hp < 10 && player.HasItems('water', 1)) {
-    player.UseItem("water");
-  }
+// //   while (player.hp < player.maxHp && player.HasItems('water', 1)) {
+// //     player.UseItem("water");
+// //   }
 
-  GoAdventuring();
-}
+// //   GoAdventuring();
+// // }
+
+// // player.SellItem('water');
+// // player.BuyItem('hydrogen');
+WanderAbout();
+DeliveryQuest();
+FightSomething();
+
+GiveItems(player,'hydrogen', 2);
+GiveItems(player,'oxygen', 1);
+player.MakeItem('water');
+player.UseItem('water');
+
+GiveItems(player, 'water', 1);
+player.DeconstructItem('water');
+
+player.SellItem('hydrogen');
+
+player.BuyItem('oxygen');
 
 console.log("Finished with: \r\n", player);
 console.log("Farewell");
