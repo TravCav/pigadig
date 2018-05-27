@@ -320,11 +320,12 @@ function LookupItem(itemName) {
 console.log("And here our adventure begins...");
 
 while (player.hp > 0) {
+  while (player.HasItems('hydrogen', 2) && player.HasItems('oxygen', 1)) {
+    player.MakeItem('water');
+  }
 
   while (player.hp < 10 && player.HasItems('water', 1)) {
     player.UseItem("water");
-    //player.MakeItem('water');
-    //player.DeconstructItem('water');
   }
 
   GoAdventuring();
