@@ -27,7 +27,9 @@ const items = [{
     ],
     effect: function (entity) {
       entity.hp++;
-      console.log('You feel a little refreshed.');
+      if (canOutput(msgTypes.itemEffect)) {
+        console.log('You feel a little refreshed.');
+      }
     }
   }
 ];
@@ -62,6 +64,19 @@ const entities = [{
     }]
   }
 ];
+const msgTypes = {
+  none: 0,
+  quest: 1,
+  fight: 2,
+  attacks: 4,
+  itemEffect: 8
+};
+
+const outputs = msgTypes.fight | msgTypes.quest; // | msgTypes.attacks;
+
+const canOutput = function (type) {
+  return ((outputs & type) === type);
+};
 
 class Entity {
   constructor(parameters) {
@@ -96,9 +111,11 @@ class Entity {
   }
 
   Attack(entity, attack) {
-    console.log(
-      this.name + " attacks " + entity.name + " with " + attack.name
-    );
+    if (canOutput(msgTypes.attacks)) {
+      console.log(
+        this.name + " attacks " + entity.name + " with " + attack.name
+      );
+    }
     this.timeSpent++;
     entity.TakeDamage(attack);
   }
@@ -133,9 +150,7 @@ class Entity {
 
     player.inventory.forEach(item => {
       if (item.name === itemName) {
-        if (item.qty < qty) {
-          console.log("need " + (qty - item.qty) + " more " + itemName);
-        } else {
+        if (item.qty >= qty) {
           hasItems = true;
         }
       }
@@ -150,9 +165,7 @@ class Entity {
     let canMakeItem = false;
 
     // does it have any requirements
-    if (item.dependencies.length === 0) {
-      canMakeItem = true;
-    } else {
+    if (item.dependencies.length > 0) {
       let missingItems = false;
       // can we meet the requirements
       item.dependencies.forEach(dependency => {
@@ -211,7 +224,7 @@ class Entity {
   UseItem(itemName) {
     const item = LookupItem(itemName);
     if (this.HasItems(item.name, 1)) {
-      console.log("You used the " + item.name + " I guess.");
+      console.log("You used " + item.name + ".");
       item.effect(this);
       this.RemoveItemsFromInventory(item.name, 1);
     }
@@ -243,7 +256,7 @@ function D20() {
 }
 
 function GoAdventuring() {
-  switch (Math.floor(Math.random() * 5)) {
+  switch (Math.floor(Math.random() * 3)) {
     case 0:
       // Kill quest
       GetEncounter();
@@ -263,14 +276,14 @@ function GoAdventuring() {
       }
       console.log("You make the delivery and Nameless NPC is grateful.");
       break;
-    case 2:
-      // Gather quest
-      console.log("Nothing needs gathered.");
-      break;
-    case 3:
-      // Escort quest
-      console.log("Nothing needs escorted.");
-      break;
+    // // case 2:
+    // //   // Gather quest
+    // //   console.log("Nothing needs gathered.");
+    // //   break;
+    // // case 3:
+    // //   // Escort quest
+    // //   console.log("Nothing needs escorted.");
+    // //   break;
     default:
       let randomItem = GetRandomItem();
       player.AddToInventory(randomItem.name, 1);
@@ -330,9 +343,6 @@ while (player.hp > 0) {
 
   GoAdventuring();
 }
-
-// // MakeItem("water");
-// // DeconstructItem("water");
 
 console.log("Finished with: \r\n", player);
 console.log("Farewell");
