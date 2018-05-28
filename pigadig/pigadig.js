@@ -145,7 +145,7 @@ rl.question('What is your name? ', (answer) => {
   console.log('You can Adventure, Quest, Fight, or Quit.');
   console.log('What do you want to do?');
   //DoAdventure();
- 
+
 });
 
 
@@ -167,12 +167,14 @@ rl.on('line', (line) => {
       console.log('You can Adventure, Quest, Fight, or Quit.');
       console.log('What do you want to do?');
       break;
-    default:
+    case 'quit':
       console.log('Thanks for playing.');
       rl.close();
       break;
+    default:
+      WanderAbout();
+      console.log('You can Adventure, Quest, Fight, or Quit.');
+      console.log('What do you want to do?');
+      break;
   }
-
-  
 });
-
