@@ -151,18 +151,18 @@ rl.question('What is your name? ', (answer) => {
 
 rl.on('line', (line) => {
   console.log(`You chose to ${line}`);
-  switch (line) {
-    case 'Adventure':
+  switch (line.toLowerCase()) {
+    case 'adventure':
       WanderAbout();
       console.log('You can Adventure, Quest, Fight, or Quit.');
       console.log('What do you want to do?');
       break;
-    case 'Quest':
+    case 'quest':
       DeliveryQuest();
       console.log('You can Adventure, Quest, Fight, or Quit.');
       console.log('What do you want to do?');
       break;
-    case 'Fight':
+    case 'fight':
       FightSomething();
       console.log('You can Adventure, Quest, Fight, or Quit.');
       console.log('What do you want to do?');
