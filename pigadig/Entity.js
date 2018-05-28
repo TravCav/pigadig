@@ -15,7 +15,15 @@ const entities = [{
 {
     name: "flower",
     hp: 1,
-    dropitems: []
+    dropitems: [{
+      item:"oxygen",
+      qty:1
+    }],
+    attacks: [{
+      name:"pollination",
+      damage:1,
+      description: "a basic attack"
+    }]
 },
 {
     name: "potato",

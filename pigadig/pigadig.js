@@ -1,8 +1,9 @@
 let Items = require('./items');
 let messaging = require('./messaging');
 let Entity = require('./Entity');
-
-
+let readline = require('readline');
+let readline2 = require('readline');
+let fs = require('fs');
 
 let player = new Entity.Entity({
   name: "player",
@@ -94,38 +95,84 @@ function Fight(entity) {
   }
 }
 
+let rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-console.log("And here our adventure begins...");
+function DoAdventure() {
 
-// // while (player.hp > 0) {
-// //   while (player.HasItems('hydrogen', 2) && player.HasItems('oxygen', 1)) {
-// //     player.MakeItem('water');
-// //   }
+  console.log("And here our adventure begins...");
 
-// //   while (player.hp < player.maxHp && player.HasItems('water', 1)) {
-// //     player.UseItem("water");
-// //   }
+  // // while (player.hp > 0) {
+  // //   while (player.HasItems('hydrogen', 2) && player.HasItems('oxygen', 1)) {
+  // //     player.MakeItem('water');
+  // //   }
 
-// //   GoAdventuring();
-// // }
+  // //   while (player.hp < player.maxHp && player.HasItems('water', 1)) {
+  // //     player.UseItem("water");
+  // //   }
 
-// // player.SellItem('water');
-// // player.BuyItem('hydrogen');
-WanderAbout();
-DeliveryQuest();
-FightSomething();
+  // //   GoAdventuring();
+  // // }
 
-Items.GiveItems(player, 'hydrogen', 2);
-Items.GiveItems(player, 'oxygen', 1);
-player.MakeItem('water');
-player.UseItem('water');
+  // // player.SellItem('water');
+  // // player.BuyItem('hydrogen');
+  WanderAbout();
+  DeliveryQuest();
+  FightSomething();
 
-Items.GiveItems(player, 'water', 1);
-player.DeconstructItem('water');
+  Items.GiveItems(player, 'hydrogen', 2);
+  Items.GiveItems(player, 'oxygen', 1);
+  player.MakeItem('water');
+  player.UseItem('water');
 
-player.SellItem('hydrogen');
+  Items.GiveItems(player, 'water', 1);
+  player.DeconstructItem('water');
 
-player.BuyItem('oxygen');
+  player.SellItem('hydrogen');
 
-console.log("Finished with: \r\n", player);
-console.log("Farewell");
+  player.BuyItem('oxygen');
+
+  console.log("Finished with: \r\n", player);
+  console.log("Farewell");
+}
+
+
+rl.question('What is your name? ', (answer) => {
+  console.log(`Thanks for playing ${answer}`);
+  console.log('Please choose what you want to do next.');
+  console.log('You can Adventure, Quest, Fight, or Quit.');
+  console.log('What do you want to do?');
+  //DoAdventure();
+ 
+});
+
+
+rl.on('line', (line) => {
+  console.log(`You chose to ${line}`);
+  switch (line) {
+    case 'Adventure':
+      WanderAbout();
+      console.log('You can Adventure, Quest, Fight, or Quit.');
+      console.log('What do you want to do?');
+      break;
+    case 'Quest':
+      DeliveryQuest();
+      console.log('You can Adventure, Quest, Fight, or Quit.');
+      console.log('What do you want to do?');
+      break;
+    case 'Fight':
+      FightSomething();
+      console.log('You can Adventure, Quest, Fight, or Quit.');
+      console.log('What do you want to do?');
+      break;
+    default:
+      console.log('Thanks for playing.');
+      rl.close();
+      break;
+  }
+
+  
+});
+
