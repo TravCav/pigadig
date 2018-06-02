@@ -4,8 +4,6 @@ let messaging = require('./messaging');
 //stuff you can encounter in adventure
 const entities = [{
     name: "guineapig",
-    hp: 1,
-    dropitems: [],
     attacks: [{
         name: "poopy turd",
         damage: 1,
@@ -14,7 +12,6 @@ const entities = [{
 },
 {
     name: "flower",
-    hp: 1,
     dropitems: [{
       item:"oxygen",
       qty:1
@@ -26,9 +23,7 @@ const entities = [{
     }]
 },
 {
-    name: "potato",
-    hp: 1,
-    dropitems: []
+    name: "potato"
 },
 {
     name: "watermelone",
@@ -45,14 +40,15 @@ const entities = [{
 class Entity {
     constructor(parameters) {
       this.name = parameters.name;
-      this.maxHp = parameters.hp;
-      this.hp = parameters.hp;
+      this.maxHp = parameters.hp || 1;
+      this.hp = parameters.hp || 1;
+      this.str = parameters.str || 1;
       this.dropitems = parameters.dropitems || [];
       this.inventory = [];
       this.timeSpent = 0;
       this.attacks = parameters.attacks || [{
         name: "melee",
-        damage: 1,
+        damage: 1 + this.str,
         description: "a basic attack"
       }];
     }
@@ -65,6 +61,7 @@ class Entity {
       }
       this.timeSpent++;
       entity.TakeDamage(attack);
+      this.str += 0.01;
     }
   
     DeconstructItem(itemName) {
