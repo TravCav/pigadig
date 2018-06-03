@@ -149,6 +149,58 @@ const entities = [{
     damage:2,
     description: "intermediate attack"
   }]
+},
+{
+  name: "raccoon",
+  hp:7,
+  dropitems:[{
+      item:"wood",
+      qty:2
+  }],
+  attacks: [{
+    name:"rabid scratch",
+    damage:2,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "flea",
+  hp:1,
+  dropitems:[{
+      item:"salt",
+      qty:1
+  }],
+  attacks: [{
+    name:"itchy bite",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "violent evergarden",
+  hp:9,
+  dropitems:[{
+      item:"iron",
+      qty:3
+  }],
+  attacks: [{
+    name:"scathing truth bomb",
+    damage:2,
+    description: "intermediate attack"
+  }]
+},
+{
+  name: "punintended",
+  hp:4,
+  dropitems:[{
+      item:"nitrous oxide",
+      qty:1
+  }],
+  attacks: [{
+    name:"double entendre",
+    damage:2,
+    description: "intermediate attack"
+  }]
 }
 ];
 

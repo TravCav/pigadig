@@ -45,6 +45,10 @@ const items = [{
         value: 1
     },
     {
+        name: "nitrous oxide",
+        value: 1
+    },
+    {
         name: "water",
         craftTime: 10,
         value: 3,
