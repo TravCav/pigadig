@@ -32,6 +32,123 @@ const entities = [{
         item: "water",
         qty: 2
     }]
+},
+{
+  name: "nacho",
+  hp:4,
+  dropitems:[{
+      item:"coin",
+      qty:1
+  }],
+  attacks: [{
+    name:"cheesy lava",
+    damage:2,
+    description: "intermediate attack"
+  }]
+},
+{
+  name: "grumpy narwhal",
+  hp:10,
+  dropitems:[{
+      item:"water",
+      qty:3
+  }],
+  attacks: [{
+    name:"pokey splash",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "pickle",
+  hp:1,
+  dropitems:[{
+      item:"vinegar",
+      qty:1
+  }],
+  attacks: [{
+    name:"acidic spit",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "cheap skate",
+  hp:12,
+  dropitems:[{
+      item:"stone",
+      qty:1
+  }],
+  attacks: [{
+    name:"penny pinch",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "slipper",
+  hp:1,
+  dropitems:[{
+      item:"wood",
+      qty:1
+  }],
+  attacks: [{
+    name:"slipper slap",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "chunky monkey",
+  hp:6,
+  dropitems:[{
+      item:"milk",
+      qty:1
+  }],
+  attacks: [{
+    name:"dairy devil spin",
+    damage:2,
+    description: "intermediate attack"
+  }]
+},
+{
+  name: "canada geese",
+  hp:2,
+  dropitems:[{
+      item:"feather",
+      qty:1
+  }],
+  attacks: [{
+    name:"noisy gaggle",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "olaf",
+  hp:4,
+  dropitems:[{
+      item:"water",
+      qty:1
+  }],
+  attacks: [{
+    name:"cold shoulder",
+    damage:1,
+    description: "a basic attack"
+  }]
+},
+{
+  name: "overwatch community",
+  hp:6,
+  dropitems:[{
+      item:"salt",
+      qty:1
+  }],
+  attacks: [{
+    name:"poser mentality",
+    damage:2,
+    description: "intermediate attack"
+  }]
 }
 ];
 
