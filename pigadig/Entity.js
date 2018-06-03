@@ -87,7 +87,7 @@ const entities = [{
 },
 {
   name: "slipper",
-  hp:1,
+  hp:3,
   dropitems:[{
       item:"wood",
       qty:1
