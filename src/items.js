@@ -76,7 +76,7 @@ function GetRandomItem() {
 }
 
 
-function GiveItems(entity, itemName, qty) {
+function GiveItems(entity, itemName, qty) { 
     const newItem = LookupItem(itemName);
     let alreadyHave = false;
     entity.inventory.forEach(item => {
@@ -103,19 +103,9 @@ function LookupItem(itemName) {
         }
     }
 
+    console.log(itemName + ' does not exist');
     return null;
 }
-
-
-function UseItem(entity1, itemName) {
-    for (let index = 0; index < items.length; index++) {
-        const item = items[index];
-        if (item.name === itemName) {
-            entity1.RemoveItemsFromInventory(item);
-        }
-    }
-    return null;
-  }
 
 function Trade(entity1, trade1, entity2, trade2) {
     // trade = [{ item: 'item', qty: qty }]
@@ -139,4 +129,3 @@ exports.LookupItem = LookupItem;
 exports.GetRandomItem = GetRandomItem;
 exports.GiveItems = GiveItems;
 exports.Trade = Trade;
-exports.UseItem = UseItem;

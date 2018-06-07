@@ -53,10 +53,20 @@ describe('Entity', function () {
 
     it('can use things', function () {
         let player = new Entity.Entity({
-            name:"user"
+            name: "user"
+        });
+        Items.GiveItems(player,'water',1);
+
+        assert.equal(player.UseItem('water'), true);
+    });
+
+    
+    it('cannot use things entity does not have', function () {
+        let player = new Entity.Entity({
+            name: "user"
         });
 
-        Items.UseItem(user,itemyThing);
+        assert.equal(player.UseItem('water'), false);
     });
 
 });
