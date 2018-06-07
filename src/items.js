@@ -106,6 +106,17 @@ function LookupItem(itemName) {
     return null;
 }
 
+
+function UseItem(entity1, itemName) {
+    for (let index = 0; index < items.length; index++) {
+        const item = items[index];
+        if (item.name === itemName) {
+            entity1.RemoveItemsFromInventory(item);
+        }
+    }
+    return null;
+  }
+
 function Trade(entity1, trade1, entity2, trade2) {
     // trade = [{ item: 'item', qty: qty }]
     trade1.forEach(trade => {
@@ -123,9 +134,9 @@ function Trade(entity1, trade1, entity2, trade2) {
     });
   }
 
-
 exports.items = items;
 exports.LookupItem = LookupItem;
 exports.GetRandomItem = GetRandomItem;
 exports.GiveItems = GiveItems;
 exports.Trade = Trade;
+exports.UseItem = UseItem;

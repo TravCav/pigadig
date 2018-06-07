@@ -51,6 +51,14 @@ describe('Entity', function () {
 
     });
 
+    it('can use things', function () {
+        let player = new Entity.Entity({
+            name:"user"
+        });
+
+        Items.UseItem(user,itemyThing);
+    });
+
 });
 
 describe('Items', function () {

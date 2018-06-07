@@ -23,4 +23,4 @@ exports.output = output;
 
 exports.attacks = function(msg){
   output(msg,msgTypes.attacks);
-}
+};
