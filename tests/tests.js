@@ -55,12 +55,12 @@ describe('Entity', function () {
         let player = new Entity.Entity({
             name: "user"
         });
-        Items.GiveItems(player,'water',1);
+        Items.GiveItems(player, 'water', 1);
 
         assert.equal(player.UseItem('water'), true);
     });
 
-    
+
     it('cannot use things entity does not have', function () {
         let player = new Entity.Entity({
             name: "user"
