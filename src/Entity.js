@@ -350,11 +350,21 @@ class Entity {
   UseItem(itemName) {
     let itemUsed = false;
     const item = Items.LookupItem(itemName);
+    if (item == null) {
+      return false;
+    }
+
     if (this.HasItems(item.name, 1)) {
+      if(item.effect == undefined) {
+        console.log(itemName + ' has no effect.');
+        return false;
+      }
+
       console.log("You used " + item.name + ".");
       item.effect(this);
       this.RemoveItemsFromInventory(item.name, 1);
       itemUsed = true;
+      
     }
 
     return itemUsed;

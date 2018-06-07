@@ -60,6 +60,14 @@ describe('Entity', function () {
         assert.equal(player.UseItem('water'), true);
     });
 
+    it('cannot use things with no effect', function () {
+        let player = new Entity.Entity({
+            name: "user"
+        });
+        Items.GiveItems(player, 'milk', 1);
+
+        assert.equal(player.UseItem('milk'), false);
+    });
 
     it('cannot use things entity does not have', function () {
         let player = new Entity.Entity({
