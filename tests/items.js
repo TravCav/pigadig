@@ -1,8 +1,9 @@
 let assert = require('assert');
 let Entity = require('../src/Entity');
 let Items = require('../src/items');
+let messaging = require('../src/messaging');
 
-
+messaging.outputs = 0;
 
 describe('Entity', function () {
     it('should have 2 water', function () {
