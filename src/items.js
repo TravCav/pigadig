@@ -106,7 +106,26 @@ function LookupItem(itemName) {
     return null;
 }
 
+function Trade(entity1, trade1, entity2, trade2) {
+    // trade = [{ item: 'item', qty: qty }]
+    trade1.forEach(trade => {
+        if(entity1.HasItems(trade.item, trade.qty)) {
+            GiveItems(entity2, trade.item, trade.qty);
+            entity1.RemoveItemsFromInventory(trade.item,trade.qty);
+          }
+    });
+
+    trade2.forEach(trade => {
+        if(entity2.HasItems(trade.item, trade.qty)) {
+            GiveItems(entity1, trade.item, trade.qty);
+            entity2.RemoveItemsFromInventory(trade.item,trade.qty);
+          }
+    });
+  }
+
+
 exports.items = items;
 exports.LookupItem = LookupItem;
 exports.GetRandomItem = GetRandomItem;
 exports.GiveItems = GiveItems;
+exports.Trade = Trade;

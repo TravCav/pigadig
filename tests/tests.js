@@ -15,15 +15,6 @@ describe('Entity', function () {
         assert.equal(player.HasItems('oxygen', 1), true);
     });
 
-    // // it('should be able to sell items', function () {
-    // //     let player = new Entity.Entity({
-    // //         name: "testplayer"
-    // //     });
-    // //     Items.GiveItems(player, 'water', 1);
-    // //     player.SellItem('water');
-    // //     assert.equal(player.HasItems('coin', 1), true);
-    // // });
-
     it('should be able to trade items', function () {
         let player1 = new Entity.Entity({
             name: "player1"
@@ -33,16 +24,32 @@ describe('Entity', function () {
         });
 
         Items.GiveItems(player1, 'coin', 1);
-        assert.equal(player1.HasItems('coin', 1), true);
-        assert.equal(player2.HasItems('coin', 1), false);
+        Items.GiveItems(player2, 'water', 1);
 
-        player1.Trade(player2, 'coin', 1);
+        Items.Trade(player1, [{
+            item: 'coin',
+            qty: 1
+        }], player2, [{
+            item: 'water',
+            qty: 1
+        }]);
 
-        assert.equal(player1.HasItems('coin', 1), false);
+        assert.equal(player1.HasItems('water', 1), true);
         assert.equal(player2.HasItems('coin', 1), true);
     });
 
+    it('can attack things', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
 
+        let gpig = new Entity.Entity({
+            name: "gpig"
+        });
+
+        player.Attack(gpig, gpig.attacks[0]);
+
+    });
 
 });
 

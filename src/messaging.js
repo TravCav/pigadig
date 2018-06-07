@@ -12,3 +12,15 @@ exports.msgTypes = msgTypes;
 exports.canOutput = function (type) {
   return ((outputs & type) === type);
 };
+
+function output(msg, type) {
+  if ((outputs & type) === type) {
+    console.log(msg);
+  }
+}
+
+exports.output = output;
+
+exports.attacks = function(msg){
+  output(msg,msgTypes.attacks);
+}

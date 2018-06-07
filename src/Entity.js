@@ -223,11 +223,8 @@ class Entity {
     }
   
     Attack(entity, attack) {
-      if (messaging.canOutput(messaging.msgTypes.attacks)) {
-        console.log(
-          this.name + " attacks " + entity.name + " with " + attack.name
-        );
-      }
+      messaging.attacks(this.name + " attacks " + entity.name + " with " + attack.name);
+
       this.timeSpent++;
       entity.TakeDamage(attack);
       this.str += 0.01;
@@ -324,32 +321,6 @@ class Entity {
             return false;
           }
         }
-      }
-    }
-  
-    // // SellItem(itemName) {
-    // //   const item = Items.LookupItem(itemName);
-    // //   if (this.HasItems(itemName, 1)) {
-    // //     this.RemoveItemsFromInventory(itemName, 1);
-    // //     Items.GiveItems(this, 'coin', item.value);
-    // //   }
-    // // }
-  
-    // // BuyItem(itemName) {
-    // //   const item = Items.LookupItem(itemName);
-    // //   if (this.HasItems('coin', item.value)) {
-    // //     this.RemoveItemsFromInventory('coin', item.value);
-    // //     Items.GiveItems(this, itemName, 1);
-    // //     console.log('You bought a ' + item.name);
-    // //   } else {
-    // //     console.log('You don\'t have enough coin.');
-    // //   }
-    // // }
-
-    Trade(entity, item, qty) {
-      if(this.HasItems(item, qty)) {
-        Items.GiveItems(entity, item, qty);
-        this.RemoveItemsFromInventory(item,qty);
       }
     }
   
