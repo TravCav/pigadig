@@ -126,10 +126,6 @@ function DoAdventure() {
   // // Items.GiveItems(player, 'water', 1);
   // // player.DeconstructItem('water');
 
-  // // player.SellItem('hydrogen');
-
-  // // player.BuyItem('oxygen');
-
   console.log("Finished with: \r\n", player);
   console.log("Farewell");
 }

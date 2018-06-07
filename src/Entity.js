@@ -223,11 +223,7 @@ class Entity {
   }
 
   Attack(entity, attack) {
-    messaging.output(this.name + " attacks " + entity.name + " with " + attack.name, messaging.msgTypes.attacks);
-
-    // // if (messaging.canOutput(messaging.msgTypes.attacks)) {
-    // //   console.log(this.name + " attacks " + entity.name + " with " + attack.name);
-    // // }
+    messaging.attacks(this.name + " attacks " + entity.name + " with " + attack.name);
 
     this.timeSpent++;
     entity.TakeDamage(attack);
@@ -246,27 +242,47 @@ class Entity {
         });
 
         this.timeSpent += item.craftTime / 2;
-        messaging.itemActions("You are successful and store the parts in your bag.");
+        console.log("You are successful and store the parts in your bag.");
       } else {
-        messaging.itemActions("Turns out you didn't have any " + itemName + " to break apart anyway.");
+        console.log(
+          "Turns out you didn't have any " +
+          itemName +
+          " to break apart anyway."
+        );
       }
     } else {
-      messaging.itemActions("You try to break it but, nothing happens.");
+      console.log("You try to break it but, nothing happens.");
     }
   }
 
   HasItems(itemName, qty) {
-    let hasItems = false;
+    const item = Items.LookupItem(itemName);
 
-    this.inventory.forEach(item => {
-      if (item.name === itemName) {
-        if (item.qty >= qty) {
+    if (item === null) {
+      return false;
+    }
+
+    let hasItems = false;
+    let hasEnough = false;
+
+    this.inventory.forEach(playerItem => {
+      if (playerItem.name === itemName) {
+        if (playerItem.qty >= qty) {
           hasItems = true;
+          hasEnough = true;
         }
       }
     });
 
-    return hasItems;
+    if (!hasItems) {
+      Items.GiveItems(this, itemName, 0);
+    }
+
+    if (!hasEnough) {
+      console.log(this.name + ' does not have enough ' + itemName);
+    }
+
+    return hasItems && hasEnough;
   }
 
   MakeItem(itemName) {
@@ -324,25 +340,6 @@ class Entity {
     }
   }
 
-  SellItem(itemName) {
-    const item = Items.LookupItem(itemName);
-    if (this.HasItems(itemName, 1)) {
-      this.RemoveItemsFromInventory(itemName, 1);
-      Items.GiveItems(this, 'coin', item.value);
-    }
-  }
-
-  BuyItem(itemName) {
-    const item = Items.LookupItem(itemName);
-    if (this.HasItems('coin', item.value)) {
-      this.RemoveItemsFromInventory('coin', item.value);
-      Items.GiveItems(this, itemName, 1);
-      console.log('You bought a ' + item.name);
-    } else {
-      console.log('You don\'t have enough coin.');
-    }
-  }
-
   TakeDamage(attack) {
     this.hp -= attack.damage;
     if (this.hp <= 0) {
@@ -351,12 +348,26 @@ class Entity {
   }
 
   UseItem(itemName) {
+    let itemUsed = false;
     const item = Items.LookupItem(itemName);
+    if (item == null) {
+      return false;
+    }
+
     if (this.HasItems(item.name, 1)) {
+      if (item.effect == undefined) {
+        console.log(itemName + ' has no effect.');
+        return false;
+      }
+
       console.log("You used " + item.name + ".");
       item.effect(this);
       this.RemoveItemsFromInventory(item.name, 1);
+      itemUsed = true;
+
     }
+
+    return itemUsed;
   }
 }
 

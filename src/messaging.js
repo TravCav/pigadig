@@ -23,22 +23,22 @@ exports.msgTypes = msgTypes;
 exports.canOutput = canOutput;
 exports.output = output;
 
-exports.attacks = function(msg) {
+exports.attacks = function (msg) {
   output(msg, msgTypes.attacks);
 };
 
-exports.fight = function(msg) {
+exports.fight = function (msg) {
   output(msg, msgTypes.fight);
 };
 
-exports.itemActions = function(msg) {
+exports.itemActions = function (msg) {
   output(msg, msgTypes.itemActions);
 };
 
-exports.itemEffects = function(msg) {
+exports.itemEffects = function (msg) {
   output(msg, msgTypes.itemEffects);
 };
 
-exports.quest = function(msg) {
-  output(msg, msgTypes.quest);  
-};
+exports.quest = function (msg) {
+  output(msg, msgTypes.quest);
+}
