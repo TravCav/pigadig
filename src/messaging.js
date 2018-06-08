@@ -41,4 +41,4 @@ exports.itemEffects = function (msg) {
 
 exports.quest = function (msg) {
   output(msg, msgTypes.quest);
-}
+};

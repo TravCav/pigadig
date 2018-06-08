@@ -201,6 +201,30 @@ const entities = [{
       damage: 2,
       description: "intermediate attack"
     }]
+  },
+  {
+    name: "demigorgon",
+    dropitems: [{
+      item: "helium",
+      qty: 1
+    }],
+    attacks: [{
+      name: "medusa stoning",
+      damage: 1,
+      description: "special attack"
+    }]
+  },
+  {
+    name: "cheshire cat",
+    dropitems: [{
+      item: "wood",
+      qty: 1
+    }],
+    attacks: [{
+      name: "hatted hairball",
+      damage: 1,
+      description: "basic attack"
+    }]
   }
 ];
 

@@ -9,6 +9,26 @@ const items = [{
         value: 1
     },
     {
+        name: "fish",
+        value: 1
+    },
+    {
+        name: "apple",
+        value: 1
+    },
+    {
+        name: "mushroom",
+        value: 1
+    },
+    {
+        name: "knife",
+        value: 1
+    },
+    {
+        name: "stick",
+        value: 1
+    },
+    {
         name: "oxygen",
         value: 1
     },
@@ -46,6 +66,70 @@ const items = [{
     },
     {
         name: "nitrous oxide",
+        value: 1
+    },
+    {
+        name: "stick",
+        value: 1
+    },
+    {
+        name: "stew",
+        value: 1
+    },
+    {
+        name: "bamboo",
+        value: 1
+    },
+    {
+        name: "egg",
+        value: 1
+    },
+    {
+        name: "backpack",
+        value: 1
+    },
+    {
+        name: "shoe",
+        value: 1
+    },
+    {
+        name: "sword",
+        value: 1
+    },
+    {
+        name: "vest",
+        value: 1
+    },
+    {
+        name: "hat",
+        value: 1
+    },
+    {
+        name: "pie",
+        value: 1
+    },
+    {
+        name: "strawberry",
+        value: 1
+    },
+    {
+        name: "paper",
+        value: 1
+    },
+    {
+        name: "hammer",
+        value: 1
+    },
+    {
+        name: "stick",
+        value: 1
+    },
+    {
+        name: "candle",
+        value: 1
+    },
+    {
+        name: "spoon",
         value: 1
     },
     {
