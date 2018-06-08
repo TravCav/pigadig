@@ -1,7 +1,7 @@
 let assert = require('assert');
 let Entity = require('../src/Entity');
 let Items = require('../src/items');
-
+let action = require('../src/action');
 
 
 describe('Entity', function () {
@@ -55,9 +55,10 @@ describe('Entity', function () {
         let player = new Entity.Entity({
             name: "user"
         });
-        Items.GiveItems(player, 'water', 1);
+        Items.GiveItems(player, 'water', 2);
 
         assert.equal(player.UseItem('water'), true);
+        assert.equal(player.HasItems('water', 1),true);
     });
 
     it('cannot use things with no effect', function () {
@@ -86,5 +87,32 @@ describe('Items', function () {
         });
         Items.GiveItems(player, 'water', 2);
         assert.equal(player.HasItems('water', 2), true);
+    });
+});
+
+
+describe('Player', function () {
+    it('Can can fight something', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        action.FightSomething(player);
+    });
+
+    it('Can can wander about', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        action.WanderAbout(player);
+    });
+
+    it('Can can do a delivery quest', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        action.DeliveryQuest(player);
     });
 });

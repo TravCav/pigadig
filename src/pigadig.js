@@ -1,6 +1,7 @@
 let Items = require('./items');
 let messaging = require('./messaging');
 let Entity = require('./Entity');
+let action = require('./action');
 let readline = require('readline');
 let readline2 = require('readline');
 let fs = require('fs');
@@ -10,58 +11,16 @@ let player = new Entity.Entity({
   hp: 10
 });
 
-function D20() {
-  return Math.floor(Math.random() * 20) + 1;
-}
 
-//Adventure activity in which you encounter an object
-function FightSomething() {
-  let entity = Entity.GetRandomEntity();
-  console.log("You encounter a", entity.name);
-  Fight(entity);
-
-  entity.dropitems.forEach(dropitem => {
-    Items.GiveItems(player, dropitem.item, dropitem.qty);
-  });
-}
-
-function DeliveryQuest() {
-  console.log(
-    "Nameless NPC needs " + Items.GetRandomItem().name + " to be delivered."
-  );
-
-  if (D20() < 5) {
-    console.log("The delivery is not as uneventful as you had hoped.");
-    FightSomething();
-  }
-
-  if (player.hp <= 0) {
-    return;
-  }
-
-  console.log("You make the delivery and Nameless NPC is grateful.");
-}
-
-function WanderAbout() {
-  let randomItem = Items.GetRandomItem();
-  Items.GiveItems(player, randomItem.name, 1);
-  player.timeSpent += 5;
-  console.log(
-    "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
-    randomItem.name +
-    " though."
-  );
-}
-
-function GoAdventuring() {
+function GoAdventuring(entity) {
   switch (Math.floor(Math.random() * 3)) {
     case 0:
       // Kill quest
-      FightSomething();
+      action.FightSomething(entity);
       break;
     case 1:
       // Delivery quest
-      DeliveryQuest();
+      action.DeliveryQuest(entity);
       break;
       // // case 2:
       // //   // Gather quest
@@ -72,26 +31,8 @@ function GoAdventuring() {
       // //   console.log("Nothing needs escorted.");
       // //   break;
     default:
-      WanderAbout();
+    action.WanderAbout(entity);
       break;
-  }
-}
-
-
-//action taken against an entity in an encounter
-function Fight(entity) {
-  console.log("You fight the", entity.name);
-
-  while (player.hp > 0 && entity.hp > 0) {
-    let playerAttack =
-      player.attacks[Math.floor(Math.random() * player.attacks.length)];
-    player.Attack(entity, playerAttack);
-
-    if (entity.hp > 0) {
-      let entityAttack =
-        entity.attacks[Math.floor(Math.random() * entity.attacks.length)];
-      entity.Attack(player, entityAttack);
-    }
   }
 }
 
@@ -109,7 +50,7 @@ function DoAdventure() {
       player.UseItem("water");
     }
 
-    GoAdventuring();
+    GoAdventuring(player);
   }
 
   // // // // player.SellItem('water');
@@ -151,17 +92,17 @@ function InteractiveMode() {
     console.log(`You chose to ${line}`);
     switch (line.toLowerCase()) {
       case 'adventure':
-        DoAdventure();
+        action.DoAdventure();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
       case 'quest':
-        DeliveryQuest();
+        action.DeliveryQuest();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
       case 'fight':
-        FightSomething();
+        action.FightSomething();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
@@ -170,7 +111,7 @@ function InteractiveMode() {
         rl.close();
         break;
       default:
-        WanderAbout();
+        action.WanderAbout();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
