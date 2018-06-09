@@ -258,24 +258,12 @@ function GiveItems(entity, itemName, qty) {
 
 function ThrowItems(entity, itemName, qty)
 {
-    const itemToThrow = LookupItem(itemName);
-
-    entity.inventory.forEach(item => {
-        if(item.name == itemToThrow.name){
-            item.qty += item.qty - qty;
-        }
-    });
+    entity.RemoveItemsFromInventory(itemName,qty);
 }
 
 function EatItems(entity, itemName, qty)
 {
-    const itemToEat = LookupItem(itemName);
-
-    entity.inventory.forEach(item => {
-        if(item.name == itemToEat.name){
-            item.qty += item.qty - qty;
-        }
-    });
+    entity.RemoveItemsFromInventory(itemName,qty);
 }
 
 

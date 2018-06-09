@@ -75,10 +75,10 @@ describe('Entity', function () {
         let player = new Entity.Entity({
             name: "testuser"
         });
-        Items.GiveItems(player, 'apple', 3);
+        Items.GiveItems(player, 'apple', 5);
         Items.EatItems(player, 'apple', 2);
         
-        assert.equal(player.HasItems('apple', 1),true);
+        assert.equal(player.HasItems('apple', 3),true);
     });
 
     it('cannot use things with no effect', function () {
