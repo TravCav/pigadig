@@ -181,6 +181,34 @@ const items = [{
         value: 1
     },
     {
+        name: "glasses",
+        value: 1
+    },
+    {
+        name: "googles",
+        value: 1
+    },
+    {
+        name: "gloves",
+        value: 1
+    },
+    {
+        name: "watch",
+        value: 1
+    },
+    {
+        name: "cake",
+        value: 1
+    },
+    {
+        name: "clock",
+        value: 1
+    },
+    {
+        name: "string",
+        value: 1
+    },
+    {
         name: "water",
         craftTime: 10,
         value: 3,
@@ -228,6 +256,17 @@ function GiveItems(entity, itemName, qty) {
     }
 }
 
+function ThrowItems(entity, itemName, qty)
+{
+    const itemToThrow = LookupItem(itemName);
+
+    entity.inventory(item => {
+        if(item.name == itemToThrow.name){
+            item.qty += item.qty - qty;
+        }
+    });
+}
+
 
 function LookupItem(itemName) {
     for (let index = 0; index < items.length; index++) {
@@ -263,3 +302,4 @@ exports.LookupItem = LookupItem;
 exports.GetRandomItem = GetRandomItem;
 exports.GiveItems = GiveItems;
 exports.Trade = Trade;
+exports.ThrowItems = ThrowItems;

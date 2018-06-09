@@ -204,6 +204,7 @@ const entities = [{
   },
   {
     name: "demigorgon",
+    hp:6,
     dropitems: [{
       item: "helium",
       qty: 1
@@ -216,6 +217,7 @@ const entities = [{
   },
   {
     name: "britneypicklespears",
+    hp:5,
     dropitems: [{
       item: "vinegar",
       qty: 1
@@ -228,6 +230,7 @@ const entities = [{
   },
   {
     name: "mariah carried",
+    hp:4,
     dropitems: [{
       item: "covfefe",
       qty: 1
@@ -240,6 +243,7 @@ const entities = [{
   },
   {
     name: "basic chick",
+    hp:1,
     dropitems: [{
       item: "coffee",
       qty: 1
@@ -252,6 +256,7 @@ const entities = [{
   },
   {
     name: "cheshire cat",
+    hp:1,
     dropitems: [{
       item: "wood",
       qty: 1

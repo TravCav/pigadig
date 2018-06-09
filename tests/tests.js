@@ -61,6 +61,17 @@ describe('Entity', function () {
         assert.equal(player.HasItems('water', 1),true);
     });
 
+    it('can throw things', function () {
+        let player = new Entity.Entity({
+            name: "testuser"
+        });
+        Items.GiveItems(player,'stick',3);
+        Items.ThrowItems(player, 'stick', 2);
+        
+        assert.equal(player.HasItems('stick', 1),true);
+    });
+    
+
     it('cannot use things with no effect', function () {
         let player = new Entity.Entity({
             name: "user"

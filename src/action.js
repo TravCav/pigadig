@@ -33,7 +33,10 @@ const action = [{
 },
 {
     name: "equip"
-}
+},
+{
+    name: "drink"
+},
 ];
 
 
@@ -59,6 +62,7 @@ function FightSomething(entity) {
   });
 }
 
+//Adventure activity in which you encounter an object
 function DeliveryQuest(entity) {
   console.log(
     "Nameless NPC needs " + Items.GetRandomItem().name + " to be delivered."

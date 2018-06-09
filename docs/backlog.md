@@ -11,6 +11,8 @@ Code Backlog
 -goals class
 -trade decider
 -trade acceptance
+-character classes
+
 
 ---------------------------------------------------------------------------------------------------------
 Data Backlog
