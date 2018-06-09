@@ -260,8 +260,19 @@ function ThrowItems(entity, itemName, qty)
 {
     const itemToThrow = LookupItem(itemName);
 
-    entity.inventory(item => {
+    entity.inventory.forEach(item => {
         if(item.name == itemToThrow.name){
+            item.qty += item.qty - qty;
+        }
+    });
+}
+
+function EatItems(entity, itemName, qty)
+{
+    const itemToEat = LookupItem(itemName);
+
+    entity.inventory.forEach(item => {
+        if(item.name == itemToEat.name){
             item.qty += item.qty - qty;
         }
     });
@@ -298,6 +309,7 @@ function Trade(entity1, trade1, entity2, trade2) {
 }
 
 exports.items = items;
+exports.EatItems = EatItems;
 exports.LookupItem = LookupItem;
 exports.GetRandomItem = GetRandomItem;
 exports.GiveItems = GiveItems;

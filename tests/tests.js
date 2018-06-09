@@ -65,12 +65,21 @@ describe('Entity', function () {
         let player = new Entity.Entity({
             name: "testuser"
         });
-        Items.GiveItems(player,'stick',3);
+        Items.GiveItems(player, 'stick', 3);
         Items.ThrowItems(player, 'stick', 2);
-        
+
         assert.equal(player.HasItems('stick', 1),true);
     });
     
+    it('can eat things', function () {
+        let player = new Entity.Entity({
+            name: "testuser"
+        });
+        Items.GiveItems(player, 'apple', 3);
+        Items.EatItems(player, 'apple', 2);
+        
+        assert.equal(player.HasItems('apple', 1),true);
+    });
 
     it('cannot use things with no effect', function () {
         let player = new Entity.Entity({
