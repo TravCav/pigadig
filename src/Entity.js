@@ -215,6 +215,42 @@ const entities = [{
     }]
   },
   {
+    name: "britneypicklespears",
+    dropitems: [{
+      item: "vinegar",
+      qty: 1
+    }],
+    attacks: [{
+      name: "hit your baby one more time",
+      damage: 1,
+      description: "basic attack"
+    }]
+  },
+  {
+    name: "mariah carried",
+    dropitems: [{
+      item: "covfefe",
+      qty: 1
+    }],
+    attacks: [{
+      name: "pterodactyl screech",
+      damage: 1,
+      description: "basic attack"
+    }]
+  },
+  {
+    name: "basic chick",
+    dropitems: [{
+      item: "coffee",
+      qty: 1
+    }],
+    attacks: [{
+      name: "omg cant event",
+      damage: 1,
+      description: "special attack"
+    }]
+  },
+  {
     name: "cheshire cat",
     dropitems: [{
       item: "wood",

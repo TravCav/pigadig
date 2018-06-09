@@ -129,6 +129,54 @@ const items = [{
         value: 1
     },
     {
+        name: "candy",
+        value: 1
+    },
+    {
+        name: "putty",
+        value: 1
+    },
+    {
+        name: "chip",
+        value: 1
+    },
+    {
+        name: "corn",
+        value: 1
+    },
+    {
+        name: "cotton",
+        value: 1
+    },
+    {
+        name: "wig",
+        value: 1
+    },
+    {
+        name: "lipstick",
+        value: 1
+    },
+    {
+        name: "tinder",
+        value: 1
+    },
+    {
+        name: "razor",
+        value: 1
+    },
+    {
+        name: "kitchen sink",
+        value: 1
+    },
+    {
+        name: "coffee",
+        value: 1
+    },
+    {
+        name: "covfefe",
+        value: 1
+    },
+    {
         name: "spoon",
         value: 1
     },
