@@ -279,6 +279,7 @@ class Entity {
     this.str = parameters.str || 1;
     this.dropitems = parameters.dropitems || [];
     this.inventory = [];
+    this.equipment = [];
     this.timeSpent = 0;
     this.attacks = parameters.attacks || [{
       name: "melee",
@@ -318,6 +319,17 @@ class Entity {
     } else {
       console.log("You try to break it but, nothing happens.");
     }
+  }
+
+  Equip(itemName, equipPlace){
+    if(this.HasItems(itemName,1)) {
+      const item = Items.LookupItem(itemName);
+      this.equipment.push({location: equipPlace, item: item});
+      this.RemoveItemsFromInventory(itemName,1);
+      return true;
+    }
+
+    return false;
   }
 
   HasItems(itemName, qty) {
@@ -410,6 +422,20 @@ class Entity {
     if (this.hp <= 0) {
       console.log(this.name + " has died to death.");
     }
+  }
+
+  Unequip(itemName, equipPlace){
+    for (let index = 0; index < this.equipment.length; index++) {
+      let equippedItem = this.equipment[index];
+      if(equippedItem.item.name==itemName && equippedItem.location==equipPlace) {
+        this.equipment.splice(index,1);
+        Items.GiveItems(this,itemName, 1);
+
+        return true;
+      }
+    }
+    console.log(this.name + ' does not have that item equipped there');
+    return false;
   }
 
   UseItem(itemName) {

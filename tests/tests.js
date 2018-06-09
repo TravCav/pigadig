@@ -112,7 +112,7 @@ describe('Items', function () {
 
 
 describe('Player', function () {
-    it('Can can fight something', function () {
+    it('Can fight something', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
@@ -120,7 +120,7 @@ describe('Player', function () {
         action.FightSomething(player);
     });
 
-    it('Can can wander about', function () {
+    it('Can wander about', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
@@ -128,11 +128,37 @@ describe('Player', function () {
         action.WanderAbout(player);
     });
 
-    it('Can can do a delivery quest', function () {
+    it('Can do a delivery quest', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
 
         action.DeliveryQuest(player);
+    });
+
+    it('Can equip item', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        Items.GiveItems(player, 'hat', 1);
+
+        player.Equip('hat', 'head');
+        assert.equal(player.HasItems('hat',1), false);
+
+    });
+
+    it('Can unequip item', function() {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        const hat = Items.LookupItem('hat');
+        player.equipment.push({location: 'head', item: hat});
+
+        assert.equal(player.Unequip('hat', 'head'), true);
+
+        assert.equal(player.HasItems('hat',1), true);
+        assert.equal(player.equipment.length, 0);
     });
 });
