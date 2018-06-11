@@ -20,6 +20,7 @@ npm install
 
 ## Make the magic happen
 npm start
+If you want it to do other stuff then go change the code.
 
 ## testing
 npm test
