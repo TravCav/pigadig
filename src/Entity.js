@@ -1,5 +1,6 @@
 let Items = require('./items');
 let messaging = require('./messaging');
+let Areas = require('./Areas');
 
 //stuff you can encounter in adventure
 const entities = [{
@@ -204,7 +205,7 @@ const entities = [{
   },
   {
     name: "demigorgon",
-    hp:6,
+    hp: 6,
     dropitems: [{
       item: "helium",
       qty: 1
@@ -217,7 +218,7 @@ const entities = [{
   },
   {
     name: "britneypicklespears",
-    hp:5,
+    hp: 5,
     dropitems: [{
       item: "vinegar",
       qty: 1
@@ -230,7 +231,7 @@ const entities = [{
   },
   {
     name: "mariah carried",
-    hp:4,
+    hp: 4,
     dropitems: [{
       item: "covfefe",
       qty: 1
@@ -243,7 +244,7 @@ const entities = [{
   },
   {
     name: "basic chick",
-    hp:1,
+    hp: 1,
     dropitems: [{
       item: "coffee",
       qty: 1
@@ -256,7 +257,7 @@ const entities = [{
   },
   {
     name: "cheshire cat",
-    hp:1,
+    hp: 1,
     dropitems: [{
       item: "wood",
       qty: 1
@@ -321,11 +322,14 @@ class Entity {
     }
   }
 
-  Equip(itemName, equipPlace){
-    if(this.HasItems(itemName,1)) {
+  Equip(itemName, equipPlace) {
+    if (this.HasItems(itemName, 1)) {
       const item = Items.LookupItem(itemName);
-      this.equipment.push({location: equipPlace, item: item});
-      this.RemoveItemsFromInventory(itemName,1);
+      this.equipment.push({
+        location: equipPlace,
+        item: item
+      });
+      this.RemoveItemsFromInventory(itemName, 1);
       return true;
     }
 
@@ -360,6 +364,22 @@ class Entity {
     }
 
     return hasItems && hasEnough;
+  }
+
+  Loot(entity) {
+    if(entity.hp > 0) {
+      console.log(entity.name + ' is still alive and cannot be looted.');
+      return false;
+    }
+
+    console.log(this.name + ' loots ' + entity.name + ' and finds ' + entity.dropitems.length + ' items.');
+
+    entity.dropitems.forEach(dropitem => {
+      Items.GiveItems(this, dropitem.item, dropitem.qty);
+      dropitem.qty = 0;
+    });
+
+    return true;
   }
 
   MakeItem(itemName) {
@@ -424,12 +444,12 @@ class Entity {
     }
   }
 
-  Unequip(itemName, equipPlace){
+  Unequip(itemName, equipPlace) {
     for (let index = 0; index < this.equipment.length; index++) {
       let equippedItem = this.equipment[index];
-      if(equippedItem.item.name==itemName && equippedItem.location==equipPlace) {
-        this.equipment.splice(index,1);
-        Items.GiveItems(this,itemName, 1);
+      if (equippedItem.item.name == itemName && equippedItem.location == equipPlace) {
+        this.equipment.splice(index, 1);
+        Items.GiveItems(this, itemName, 1);
 
         return true;
       }
@@ -464,10 +484,28 @@ class Entity {
 
 
 //returns a random object for the encounter
-function GetRandomEntity() {
-  return new Entity(entities[Math.floor(Math.random() * entities.length)]);
+function GetRandomEntity(areaName) {
+  let area = Areas.LookupArea(areaName);
+  if (area == null) {
+    return null;
+  }
+
+  return LookupEntity(area.entities[Math.floor(Math.random() * area.entities.length)]);
 }
 
+function LookupEntity(entityName) {
+  //console.log('looking for ' + entityName);
+  for (let index = 0; index < entities.length; index++) {
+    const entity = entities[index];
+    if (entity.name === entityName) {
+      return new Entity(entity);
+    }
+  }
+
+  console.log(entityName + ' does not exist');
+  return null;
+}
 
 exports.Entity = Entity;
 exports.GetRandomEntity = GetRandomEntity;
+exports.LookupEntity = LookupEntity;

@@ -1,8 +1,8 @@
 let assert = require('assert');
 let Entity = require('../src/Entity');
 let Items = require('../src/items');
-let action = require('../src/action');
-
+let action = require('../src/Actions');
+let Areas = require('../src/Areas');
 
 describe('Entity', function () {
     it('should be able to deconstruct item', function () {
@@ -58,7 +58,7 @@ describe('Entity', function () {
         Items.GiveItems(player, 'water', 2);
 
         assert.equal(player.UseItem('water'), true);
-        assert.equal(player.HasItems('water', 1),true);
+        assert.equal(player.HasItems('water', 1), true);
     });
 
     it('can throw things', function () {
@@ -68,17 +68,17 @@ describe('Entity', function () {
         Items.GiveItems(player, 'stick', 3);
         Items.ThrowItems(player, 'stick', 2);
 
-        assert.equal(player.HasItems('stick', 1),true);
+        assert.equal(player.HasItems('stick', 1), true);
     });
-    
+
     it('can eat things', function () {
         let player = new Entity.Entity({
             name: "testuser"
         });
         Items.GiveItems(player, 'apple', 5);
         Items.EatItems(player, 'apple', 2);
-        
-        assert.equal(player.HasItems('apple', 3),true);
+
+        assert.equal(player.HasItems('apple', 3), true);
     });
 
     it('cannot use things with no effect', function () {
@@ -112,12 +112,45 @@ describe('Items', function () {
 
 
 describe('Player', function () {
-    it('Can fight something', function () {
+    it('Can fight an entity', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+        let entity = Entity.LookupEntity('potato');
+        
+        action.Fight(player, entity);
+    });
+
+    it('Can fight something in an area', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
 
-        action.FightSomething(player);
+        action.FightSomething(player, 'kitchen');
+    });
+
+    it('Can loot dead entities', function(){
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        let deadEntity = Entity.LookupEntity('watermelone');
+        deadEntity.hp=0;
+
+        assert.equal(player.Loot(deadEntity), true);
+        assert.equal(player.inventory.length===1, true);
+        assert.equal(deadEntity.dropitems[0].qty===0, true);
+    });
+
+    it('Cannot loot living entities', function(){
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+
+        let deadEntity = Entity.LookupEntity('watermelone');
+       
+        assert.equal(player.Loot(deadEntity), false);
+        assert.equal(player.inventory.length===1, false);
     });
 
     it('Can wander about', function () {
@@ -144,21 +177,24 @@ describe('Player', function () {
         Items.GiveItems(player, 'hat', 1);
 
         player.Equip('hat', 'head');
-        assert.equal(player.HasItems('hat',1), false);
+        assert.equal(player.HasItems('hat', 1), false);
 
     });
 
-    it('Can unequip item', function() {
+    it('Can unequip item', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
 
         const hat = Items.LookupItem('hat');
-        player.equipment.push({location: 'head', item: hat});
+        player.equipment.push({
+            location: 'head',
+            item: hat
+        });
 
         assert.equal(player.Unequip('hat', 'head'), true);
 
-        assert.equal(player.HasItems('hat',1), true);
+        assert.equal(player.HasItems('hat', 1), true);
         assert.equal(player.equipment.length, 0);
     });
 });

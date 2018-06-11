@@ -256,14 +256,12 @@ function GiveItems(entity, itemName, qty) {
     }
 }
 
-function ThrowItems(entity, itemName, qty)
-{
-    entity.RemoveItemsFromInventory(itemName,qty);
+function ThrowItems(entity, itemName, qty) {
+    entity.RemoveItemsFromInventory(itemName, qty);
 }
 
-function EatItems(entity, itemName, qty)
-{
-    entity.RemoveItemsFromInventory(itemName,qty);
+function EatItems(entity, itemName, qty) {
+    entity.RemoveItemsFromInventory(itemName, qty);
 }
 
 

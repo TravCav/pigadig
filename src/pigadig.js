@@ -31,7 +31,7 @@ function GoAdventuring(entity) {
       // //   console.log("Nothing needs escorted.");
       // //   break;
     default:
-    action.WanderAbout(entity);
+      action.WanderAbout(entity);
       break;
   }
 }
