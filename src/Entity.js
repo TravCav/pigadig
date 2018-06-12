@@ -3,7 +3,7 @@ let messaging = require('./messaging');
 let Areas = require('./Areas');
 
 //stuff you can encounter in adventure
-const entities = [{
+let entities = [{
     name: "guineapig",
     attacks: [{
       name: "poopy turd",
@@ -509,3 +509,4 @@ function LookupEntity(entityName) {
 exports.Entity = Entity;
 exports.GetRandomEntity = GetRandomEntity;
 exports.LookupEntity = LookupEntity;
+exports.entities = entities;

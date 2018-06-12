@@ -1,7 +1,7 @@
 let Items = require('./items');
 let messaging = require('./messaging');
 let Entity = require('./Entity');
-let action = require('./action');
+let Action = require('./Actions');
 let readline = require('readline');
 let readline2 = require('readline');
 let fs = require('fs');
@@ -16,11 +16,11 @@ function GoAdventuring(entity) {
   switch (Math.floor(Math.random() * 3)) {
     case 0:
       // Kill quest
-      action.FightSomething(entity);
+      Action.FightSomething(entity, 'kitchen');
       break;
     case 1:
       // Delivery quest
-      action.DeliveryQuest(entity);
+      Action.DeliveryQuest(entity);
       break;
       // // case 2:
       // //   // Gather quest
@@ -31,7 +31,7 @@ function GoAdventuring(entity) {
       // //   console.log("Nothing needs escorted.");
       // //   break;
     default:
-      action.WanderAbout(entity);
+      Action.WanderAbout(entity);
       break;
   }
 }
@@ -92,17 +92,17 @@ function InteractiveMode() {
     console.log(`You chose to ${line}`);
     switch (line.toLowerCase()) {
       case 'adventure':
-        action.DoAdventure();
+        Action.DoAdventure();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
       case 'quest':
-        action.DeliveryQuest();
+        Action.DeliveryQuest();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
       case 'fight':
-        action.FightSomething();
+        Action.FightSomething();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
@@ -111,7 +111,7 @@ function InteractiveMode() {
         rl.close();
         break;
       default:
-        action.WanderAbout();
+        Action.WanderAbout();
         console.log('You can Adventure, Quest, Fight, or Quit.');
         console.log('What do you want to do?');
         break;
