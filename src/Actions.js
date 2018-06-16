@@ -44,12 +44,6 @@ const action = [{
     },
 ];
 
-
-
-function D20() {
-    return Math.floor(Math.random() * 20) + 1;
-}
-
 //action taken against an entity in an encounter
 function Fight(entity1, entity2) {
     console.log("You fight the", entity2.name);
@@ -92,7 +86,7 @@ function DeliveryQuest(entity) {
         "Nameless NPC needs " + Items.GetRandomItem().name + " to be delivered."
     );
 
-    if (D20() < 5) {
+    if (Math.random() < 0.2) {
         console.log("The delivery is not as uneventful as you had hoped.");
         FightSomething(entity);
     }
@@ -115,8 +109,6 @@ function WanderAbout(entity) {
     );
 }
 
-
-exports.D20 = D20;
 exports.DeliveryQuest = DeliveryQuest;
 exports.Fight = Fight;
 exports.FightSomething = FightSomething;

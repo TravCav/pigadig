@@ -284,7 +284,7 @@ class Entity {
     this.timeSpent = 0;
     this.attacks = parameters.attacks || [{
       name: "melee",
-      damage: 1 + this.str,
+      damage: this.str,
       description: "a basic attack"
     }];
   }
@@ -367,7 +367,7 @@ class Entity {
   }
 
   Loot(entity) {
-    if(entity.hp > 0) {
+    if (entity.hp > 0) {
       console.log(entity.name + ' is still alive and cannot be looted.');
       return false;
     }
