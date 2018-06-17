@@ -219,6 +219,6 @@ describe('Combat', function(){
         });
 
         entity1.str+=1;
-        assert.equal(entity1.attacks[0].damage == 3, true, entity1.attacks[0].damage);
+        assert.equal(entity1.attacks[0].damage == 2, true, entity1.attacks[0].damage);
     });
 });
