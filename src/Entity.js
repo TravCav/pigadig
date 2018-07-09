@@ -4,215 +4,15 @@ let Areas = require('./Areas');
 
 //stuff you can encounter in adventure
 let entities = [{
-    name: "guineapig",
-    attacks: [{
-      name: "poopy turd",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "flower",
-    dropitems: [{
-      item: "oxygen",
-      qty: 1
-    }],
-    attacks: [{
-      name: "pollination",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "potato"
-  },
-  {
-    name: "watermelone",
-    hp: 5,
-    dropitems: [{
-      item: "water",
-      qty: 2
-    }]
-  },
-  {
-    name: "nacho",
-    hp: 4,
-    dropitems: [{
-      item: "coin",
-      qty: 1
-    }],
-    attacks: [{
-      name: "cheesy lava",
-      damage: 2,
-      description: "intermediate attack"
-    }]
-  },
-  {
-    name: "grumpy narwhal",
-    hp: 10,
-    dropitems: [{
-      item: "water",
-      qty: 3
-    }],
-    attacks: [{
-      name: "pokey splash",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "pickle",
+    name: "basic chick",
     hp: 1,
     dropitems: [{
-      item: "vinegar",
+      item: "coffee",
       qty: 1
     }],
     attacks: [{
-      name: "acidic spit",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "cheap skate",
-    hp: 12,
-    dropitems: [{
-      item: "stone",
-      qty: 1
-    }],
-    attacks: [{
-      name: "penny pinch",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "slipper",
-    hp: 3,
-    dropitems: [{
-      item: "wood",
-      qty: 1
-    }],
-    attacks: [{
-      name: "slipper slap",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "chunky monkey",
-    hp: 6,
-    dropitems: [{
-      item: "milk",
-      qty: 1
-    }],
-    attacks: [{
-      name: "dairy devil spin",
-      damage: 2,
-      description: "intermediate attack"
-    }]
-  },
-  {
-    name: "canada geese",
-    hp: 2,
-    dropitems: [{
-      item: "feather",
-      qty: 1
-    }],
-    attacks: [{
-      name: "noisy gaggle",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "olaf",
-    hp: 4,
-    dropitems: [{
-      item: "water",
-      qty: 1
-    }],
-    attacks: [{
-      name: "cold shoulder",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "overwatch community",
-    hp: 6,
-    dropitems: [{
-      item: "salt",
-      qty: 1
-    }],
-    attacks: [{
-      name: "poser mentality",
-      damage: 2,
-      description: "intermediate attack"
-    }]
-  },
-  {
-    name: "raccoon",
-    hp: 7,
-    dropitems: [{
-      item: "wood",
-      qty: 2
-    }],
-    attacks: [{
-      name: "rabid scratch",
-      damage: 2,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "flea",
-    hp: 1,
-    dropitems: [{
-      item: "salt",
-      qty: 1
-    }],
-    attacks: [{
-      name: "itchy bite",
-      damage: 1,
-      description: "a basic attack"
-    }]
-  },
-  {
-    name: "violent evergarden",
-    hp: 9,
-    dropitems: [{
-      item: "iron",
-      qty: 3
-    }],
-    attacks: [{
-      name: "scathing truth bomb",
-      damage: 2,
-      description: "intermediate attack"
-    }]
-  },
-  {
-    name: "punintended",
-    hp: 4,
-    dropitems: [{
-      item: "nitrous oxide",
-      qty: 1
-    }],
-    attacks: [{
-      name: "double entendre",
-      damage: 2,
-      description: "intermediate attack"
-    }]
-  },
-  {
-    name: "demigorgon",
-    hp: 6,
-    dropitems: [{
-      item: "helium",
-      qty: 1
-    }],
-    attacks: [{
-      name: "medusa stoning",
-      damage: 1,
+      name: "omg cant event",
+      damage: 0.01,
       description: "special attack"
     }]
   },
@@ -225,34 +25,34 @@ let entities = [{
     }],
     attacks: [{
       name: "hit your baby one more time",
-      damage: 1,
+      damage: 0.01,
       description: "basic attack"
     }]
   },
   {
-    name: "mariah carried",
-    hp: 4,
+    name: "canada geese",
+    hp: 2,
     dropitems: [{
-      item: "covfefe",
+      item: "feather",
       qty: 1
     }],
     attacks: [{
-      name: "pterodactyl screech",
-      damage: 1,
-      description: "basic attack"
+      name: "noisy gaggle",
+      damage: 0.01,
+      description: "a basic attack"
     }]
   },
   {
-    name: "basic chick",
-    hp: 1,
+    name: "cheap skate",
+    hp: 12,
     dropitems: [{
-      item: "coffee",
+      item: "stone",
       qty: 1
     }],
     attacks: [{
-      name: "omg cant event",
-      damage: 1,
-      description: "special attack"
+      name: "penny pinch",
+      damage: 0.01,
+      description: "a basic attack"
     }]
   },
   {
@@ -264,8 +64,208 @@ let entities = [{
     }],
     attacks: [{
       name: "hatted hairball",
-      damage: 1,
+      damage: 0.01,
       description: "basic attack"
+    }]
+  },
+  {
+    name: "chunky monkey",
+    hp: 6,
+    dropitems: [{
+      item: "milk",
+      qty: 1
+    }],
+    attacks: [{
+      name: "dairy devil spin",
+      damage: 0.02,
+      description: "intermediate attack"
+    }]
+  },
+  {
+    name: "demigorgon",
+    hp: 6,
+    dropitems: [{
+      item: "helium",
+      qty: 1
+    }],
+    attacks: [{
+      name: "medusa stoning",
+      damage: 0.01,
+      description: "special attack"
+    }]
+  },
+  {
+    name: "flea",
+    hp: 1,
+    dropitems: [{
+      item: "salt",
+      qty: 1
+    }],
+    attacks: [{
+      name: "itchy bite",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "flower",
+    dropitems: [{
+      item: "oxygen",
+      qty: 1
+    }],
+    attacks: [{
+      name: "pollination",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "grumpy narwhal",
+    hp: 10,
+    dropitems: [{
+      item: "water",
+      qty: 3
+    }],
+    attacks: [{
+      name: "pokey splash",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "guineapig",
+    attacks: [{
+      name: "poopy turd",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "mariah carried",
+    hp: 4,
+    dropitems: [{
+      item: "covfefe",
+      qty: 1
+    }],
+    attacks: [{
+      name: "pterodactyl screech",
+      damage: 0.01,
+      description: "basic attack"
+    }]
+  },
+  {
+    name: "nacho",
+    hp: 4,
+    dropitems: [{
+      item: "coin",
+      qty: 1
+    }],
+    attacks: [{
+      name: "cheesy lava",
+      damage: 0.02,
+      description: "intermediate attack"
+    }]
+  },
+  {
+    name: "olaf",
+    hp: 4,
+    dropitems: [{
+      item: "water",
+      qty: 1
+    }],
+    attacks: [{
+      name: "cold shoulder",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "overwatch community",
+    hp: 6,
+    dropitems: [{
+      item: "salt",
+      qty: 1
+    }],
+    attacks: [{
+      name: "poser mentality",
+      damage: 0.02,
+      description: "intermediate attack"
+    }]
+  },
+  {
+    name: "pickle",
+    hp: 1,
+    dropitems: [{
+      item: "vinegar",
+      qty: 1
+    }],
+    attacks: [{
+      name: "acidic spit",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "potato"
+  },
+  {
+    name: "slipper",
+    hp: 3,
+    dropitems: [{
+      item: "wood",
+      qty: 1
+    }],
+    attacks: [{
+      name: "slipper slap",
+      damage: 0.01,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "punintended",
+    hp: 4,
+    dropitems: [{
+      item: "nitrous oxide",
+      qty: 1
+    }],
+    attacks: [{
+      name: "double entendre",
+      damage: 0.02,
+      description: "intermediate attack"
+    }]
+  },
+  {
+    name: "raccoon",
+    hp: 7,
+    dropitems: [{
+      item: "wood",
+      qty: 2
+    }],
+    attacks: [{
+      name: "rabid scratch",
+      damage: 0.02,
+      description: "a basic attack"
+    }]
+  },
+  {
+    name: "violent evergarden",
+    hp: 9,
+    dropitems: [{
+      item: "iron",
+      qty: 3
+    }],
+    attacks: [{
+      name: "scathing truth bomb",
+      damage: 0.02,
+      description: "intermediate attack"
+    }]
+  },
+  {
+    name: "watermelone",
+    hp: 5,
+    dropitems: [{
+      item: "water",
+      qty: 2
     }]
   }
 ];
@@ -284,16 +284,17 @@ class Entity {
     this.timeSpent = 0;
     this.attacks = parameters.attacks || [{
       name: "melee",
-      damage: 0,
+      damage: 0.01,
       description: "a basic attack"
     }];
   }
 
   Attack(entity, attack) {
-    messaging.attacks(this.name + " attacks " + entity.name + " with " + attack.name);
+    let dmg = attack.damage + this.str;
+    messaging.attacks(this.name + " attacks " + entity.name + " with " + attack.name + " for " + dmg + " damage.");
 
     this.timeSpent++;
-    entity.TakeDamage(attack.damage + this.str);
+    entity.TakeDamage(dmg);
     this.str += 0.01;
   }
 
