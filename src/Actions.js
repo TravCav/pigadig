@@ -1,7 +1,5 @@
-let Items = require('./items');
-let messaging = require('./messaging');
+let Items = require('./ItemActions');
 let Entity = require('./Entity');
-let Areas = require('./Areas');
 
 const action = [{
         name: "use"

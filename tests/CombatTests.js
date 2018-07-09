@@ -1,9 +1,5 @@
 let assert = require('assert');
 let Entity = require('../src/Entity');
-let Items = require('../src/items');
-let action = require('../src/Actions');
-let Areas = require('../src/Areas');
-let Attack = require('../src/Attack');
 
 describe('Combat', function () {
     it('attack makes entity stronger', function () {

@@ -1,10 +1,6 @@
-let Items = require('./items');
-let messaging = require('./messaging');
 let Entity = require('./Entity');
 let Action = require('./Actions');
 let readline = require('readline');
-let readline2 = require('readline');
-let fs = require('fs');
 
 let player = new Entity.Entity({
   name: "player",

@@ -1,10 +1,3 @@
-// let assert = require('assert');
-// let Entity = require('../src/Entity');
-// let Items = require('../src/items');
-// let action = require('../src/Actions');
-// let Areas = require('../src/Areas');
-
-
 class Attack {
     constructor(parameters) {
       this.name = "melee" || parameters.name;
