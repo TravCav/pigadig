@@ -284,7 +284,7 @@ class Entity {
     this.timeSpent = 0;
     this.attacks = parameters.attacks || [{
       name: "melee",
-      damage: this.str,
+      damage: 0,
       description: "a basic attack"
     }];
   }
@@ -293,7 +293,7 @@ class Entity {
     messaging.attacks(this.name + " attacks " + entity.name + " with " + attack.name);
 
     this.timeSpent++;
-    entity.TakeDamage(attack);
+    entity.TakeDamage(attack.damage + this.str);
     this.str += 0.01;
   }
 
@@ -437,8 +437,8 @@ class Entity {
     }
   }
 
-  TakeDamage(attack) {
-    this.hp -= attack.damage;
+  TakeDamage(damage) {
+    this.hp -= damage;
     if (this.hp <= 0) {
       console.log(this.name + " has died to death.");
     }
