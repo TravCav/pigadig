@@ -70,7 +70,7 @@ function Fight(entity1, entity2) {
 //Adventure activity in which you encounter an object
 function FightSomething(entity, areaName) {
     let entityToFight = Entity.GetRandomEntity(areaName);
-    if (entityToFight==null){
+    if (entityToFight == null) {
         return false;
     }
 

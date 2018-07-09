@@ -10,7 +10,7 @@ describe('Player', function () {
             name: "testplayer"
         });
         let entity = Entity.LookupEntity('potato');
-        
+
         action.Fight(player, entity);
     });
 
@@ -22,28 +22,28 @@ describe('Player', function () {
         action.FightSomething(player, 'kitchen');
     });
 
-    it('Can loot dead entities', function(){
+    it('Can loot dead entities', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
 
         let deadEntity = Entity.LookupEntity('watermelone');
-        deadEntity.hp=0;
+        deadEntity.hp = 0;
 
         assert.equal(player.Loot(deadEntity), true);
-        assert.equal(player.inventory.length===1, true);
-        assert.equal(deadEntity.dropitems[0].qty===0, true);
+        assert.equal(player.inventory.length === 1, true);
+        assert.equal(deadEntity.dropitems[0].qty === 0, true);
     });
 
-    it('Cannot loot living entities', function(){
+    it('Cannot loot living entities', function () {
         let player = new Entity.Entity({
             name: "testplayer"
         });
 
         let deadEntity = Entity.LookupEntity('watermelone');
-       
+
         assert.equal(player.Loot(deadEntity), false);
-        assert.equal(player.inventory.length===1, false);
+        assert.equal(player.inventory.length === 1, false);
     });
 
     it('Can wander about', function () {
