@@ -1,6 +1,7 @@
 let Entity = require('./Entity');
 let Action = require('./Actions');
 let readline = require('readline');
+const messaging = require('./messaging');
 
 let player = new Entity.Entity({
   name: "player",
@@ -20,11 +21,11 @@ function GoAdventuring(entity) {
       break;
       // // case 2:
       // //   // Gather quest
-      // //   console.log("Nothing needs gathered.");
+      // //   messaging.output("Nothing needs gathered.");
       // //   break;
       // // case 3:
       // //   // Escort quest
-      // //   console.log("Nothing needs escorted.");
+      // //   messaging.output("Nothing needs escorted.");
       // //   break;
     default:
       Action.WanderAbout(entity);
@@ -35,7 +36,7 @@ function GoAdventuring(entity) {
 
 function DoAdventure() {
 
-  console.log("And here our adventure begins...");
+  messaging.output("And here our adventure begins...");
 
   while (player.hp > 0) {
     while (player.HasItems('hydrogen', 2) && player.HasItems('oxygen', 1)) {
@@ -63,8 +64,8 @@ function DoAdventure() {
   // // Items.GiveItems(player, 'water', 1);
   // // player.DeconstructItem('water');
 
-  console.log("Finished with: \r\n", player);
-  console.log("Farewell");
+  console.log("Finished with: \r\n " + JSON.stringify(player, null, 4));
+  messaging.output("Farewell");
 }
 
 function InteractiveMode() {
@@ -75,41 +76,41 @@ function InteractiveMode() {
   });
 
   rl.question('What is your name? ', (answer) => {
-    console.log(`Thanks for playing ${answer}`);
-    console.log('Please choose what you want to do next.');
-    console.log('You can Adventure, Quest, Fight, or Quit.');
-    console.log('What do you want to do?');
+    messaging.output(`Thanks for playing ${answer}`);
+    messaging.output('Please choose what you want to do next.');
+    messaging.output('You can Adventure, Quest, Fight, or Quit.');
+    messaging.output('What do you want to do?');
     //DoAdventure();
 
   });
 
 
   rl.on('line', (line) => {
-    console.log(`You chose to ${line}`);
+    messaging.output(`You chose to ${line}`);
     switch (line.toLowerCase()) {
       case 'adventure':
         Action.DoAdventure();
-        console.log('You can Adventure, Quest, Fight, or Quit.');
-        console.log('What do you want to do?');
+        messaging.output('You can Adventure, Quest, Fight, or Quit.');
+        messaging.output('What do you want to do?');
         break;
       case 'quest':
         Action.DeliveryQuest();
-        console.log('You can Adventure, Quest, Fight, or Quit.');
-        console.log('What do you want to do?');
+        messaging.output('You can Adventure, Quest, Fight, or Quit.');
+        messaging.output('What do you want to do?');
         break;
       case 'fight':
         Action.FightSomething();
-        console.log('You can Adventure, Quest, Fight, or Quit.');
-        console.log('What do you want to do?');
+        messaging.output('You can Adventure, Quest, Fight, or Quit.');
+        messaging.output('What do you want to do?');
         break;
       case 'quit':
-        console.log('Thanks for playing.');
+        messaging.output('Thanks for playing.');
         rl.close();
         break;
       default:
         Action.WanderAbout();
-        console.log('You can Adventure, Quest, Fight, or Quit.');
-        console.log('What do you want to do?');
+        messaging.output('You can Adventure, Quest, Fight, or Quit.');
+        messaging.output('What do you want to do?');
         break;
     }
   });

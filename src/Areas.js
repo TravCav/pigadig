@@ -1,3 +1,5 @@
+let messaging = require('./messaging');
+
 ////let entities = require('./Entity').entities;
 
 const areas = [{
@@ -13,7 +15,7 @@ const areas = [{
 // //     entities: []
 // // };
 
-// // console.log(entities.length);
+// // messaging.output(entities.length);
 // // entities.forEach(entity => {
 // //     arena.entities.push(entity.name);
 // // });
@@ -28,7 +30,7 @@ function LookupArea(areaName) {
         }
     }
 
-    console.log(areaName + ' does not exist');
+    messaging.output(areaName + ' does not exist');
     return null;
 }
 

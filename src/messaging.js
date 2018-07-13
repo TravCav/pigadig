@@ -1,5 +1,7 @@
+const util = require('util');
+
 const msgTypes = {
-  none: 0,
+  any: 0,
   quest: 1,
   fight: 2,
   attacks: 4,
@@ -7,15 +9,34 @@ const msgTypes = {
   itemActions: 16
 };
 
-const outputs = msgTypes.fight | msgTypes.quest | msgTypes.attacks | msgTypes.itemEffects | msgTypes.itemActions;
+const outputs = {
+  none: 0,
+  console: 1,
+  document: 2,
+  util: 4
+};
+
+const outputTypes = msgTypes.fight | msgTypes.quest | msgTypes.attacks | msgTypes.itemEffects | msgTypes.itemActions;
+const outputMethods = outputs.console;
 
 const canOutput = function (type) {
-  return ((outputs & type) === type);
+  return ((outputTypes & type) === type);
 };
 
 const output = function (msg, type) {
+  type |= type;
   if (canOutput(type)) {
-    console.log(msg);
+    if((outputMethods & outputs.console) === outputs.console) {
+      console.log(msg);
+    }
+
+    if((outputMethods & outputs.document) === outputs.document) {
+      document.writeln(msg);
+    }
+
+    if((outputMethods & outputs.util) === outputs.util) {
+      util.log(msg);
+    }
   }
 };
 

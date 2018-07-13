@@ -1,4 +1,5 @@
 const items = require('./parameters/items').items;
+const messaging = require('./messaging');
 
 function GetRandomItem() {
     return items[Math.floor(Math.random() * items.length)];
@@ -40,7 +41,7 @@ function LookupItem(itemName) {
         }
     }
 
-    console.log(itemName + ' does not exist');
+    messaging.output(itemName + ' does not exist');
     return null;
 }
 

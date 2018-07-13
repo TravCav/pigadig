@@ -41,16 +41,16 @@ class Entity {
         });
 
         this.timeSpent += item.craftTime / 2;
-        console.log("You are successful and store the parts in your bag.");
+        messaging.output("You are successful and store the parts in your bag.");
       } else {
-        console.log(
+        messaging.output(
           "Turns out you didn't have any " +
           itemName +
           " to break apart anyway."
         );
       }
     } else {
-      console.log("You try to break it but, nothing happens.");
+      messaging.output("You try to break it but, nothing happens.");
     }
   }
 
@@ -92,7 +92,7 @@ class Entity {
     }
 
     if (!hasEnough) {
-      console.log(this.name + ' does not have enough ' + itemName);
+      messaging.output(this.name + ' does not have enough ' + itemName);
     }
 
     return hasItems && hasEnough;
@@ -100,11 +100,11 @@ class Entity {
 
   Loot(entity) {
     if (entity.hp > 0) {
-      console.log(entity.name + ' is still alive and cannot be looted.');
+      messaging.output(entity.name + ' is still alive and cannot be looted.');
       return false;
     }
 
-    console.log(this.name + ' loots ' + entity.name + ' and finds ' + entity.dropitems.length + ' items.');
+    messaging.output(this.name + ' loots ' + entity.name + ' and finds ' + entity.dropitems.length + ' items.');
 
     entity.dropitems.forEach(dropitem => {
       Items.GiveItems(this, dropitem.item, dropitem.qty);
@@ -115,7 +115,7 @@ class Entity {
   }
 
   MakeItem(itemName) {
-    console.log("You set out to make " + itemName);
+    messaging.output("You set out to make " + itemName);
     const item = Items.LookupItem(itemName);
     let canMakeItem = false;
 
@@ -138,11 +138,11 @@ class Entity {
 
     // We meet the requirements. Make the Item.
     if (canMakeItem) {
-      console.log("After a bit of work you make " + item.name);
+      messaging.output("After a bit of work you make " + item.name);
       this.timeSpent += item.craftTime;
       Items.GiveItems(this, item.name, 1);
     } else {
-      console.log(
+      messaging.output(
         "Realizing you don't have the parts you need, you hang your head in shame."
       );
     }
@@ -161,7 +161,7 @@ class Entity {
 
           return true;
         } else {
-          console.log("don't have enough of those.");
+          messaging.output("don't have enough of those.");
 
           return false;
         }
@@ -172,7 +172,7 @@ class Entity {
   TakeDamage(damage) {
     this.hp -= damage;
     if (this.hp <= 0) {
-      console.log(this.name + " has died to death.");
+      messaging.output(this.name + " has died to death.");
     }
   }
 
@@ -186,7 +186,7 @@ class Entity {
         return true;
       }
     }
-    console.log(this.name + ' does not have that item equipped there');
+    messaging.output(this.name + ' does not have that item equipped there');
     return false;
   }
 
@@ -199,11 +199,11 @@ class Entity {
 
     if (this.HasItems(item.name, 1)) {
       if (item.effect == undefined) {
-        console.log(itemName + ' has no effect.');
+        messaging.output(itemName + ' has no effect.');
         return false;
       }
 
-      console.log("You used " + item.name + ".");
+      messaging.output("You used " + item.name + ".");
       item.effect(this);
       this.RemoveItemsFromInventory(item.name, 1);
       itemUsed = true;
@@ -226,7 +226,7 @@ function GetRandomEntity(areaName) {
 }
 
 function LookupEntity(entityName) {
-  //console.log('looking for ' + entityName);
+  //messaging.output('looking for ' + entityName);
   for (let index = 0; index < entities.length; index++) {
     const entity = entities[index];
     if (entity.name === entityName) {
@@ -234,7 +234,7 @@ function LookupEntity(entityName) {
     }
   }
 
-  console.log(entityName + ' does not exist');
+  messaging.output(entityName + ' does not exist');
   return null;
 }
 

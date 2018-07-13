@@ -1,5 +1,6 @@
 let Items = require('./ItemActions');
 let Entity = require('./Entity');
+let messaging = require('./messaging');
 
 const action = [{
         name: "use"
@@ -44,7 +45,7 @@ const action = [{
 
 //action taken against an entity in an encounter
 function Fight(entity1, entity2) {
-    console.log("You fight the", entity2.name);
+    messaging.output("You fight the " + entity2.name, messaging.msgTypes.any);
 
     while (entity1.hp > 0 && entity2.hp > 0) {
         let entity1Attack =
@@ -72,7 +73,7 @@ function FightSomething(entity, areaName) {
         return false;
     }
 
-    console.log("You encounter a", entityToFight.name);
+    messaging.output("You encounter a " + entityToFight.name);
     Fight(entity, entityToFight);
 
     return true;
@@ -80,12 +81,10 @@ function FightSomething(entity, areaName) {
 
 //Adventure activity in which you encounter an object
 function DeliveryQuest(entity) {
-    console.log(
-        "Nameless NPC needs " + Items.GetRandomItem().name + " to be delivered."
-    );
+    messaging.output("Nameless NPC needs " + Items.GetRandomItem().name + " to be delivered.");
 
     if (Math.random() < 0.2) {
-        console.log("The delivery is not as uneventful as you had hoped.");
+        messaging.output("The delivery is not as uneventful as you had hoped.");
         FightSomething(entity);
     }
 
@@ -93,14 +92,14 @@ function DeliveryQuest(entity) {
         return;
     }
 
-    console.log("You make the delivery and Nameless NPC is grateful.");
+    messaging.output("You make the delivery and Nameless NPC is grateful.");
 }
 
 function WanderAbout(entity) {
     let randomItem = Items.GetRandomItem();
     Items.GiveItems(entity, randomItem.name, 1);
     entity.timeSpent += 5;
-    console.log(
+    messaging.output(
         "You wander aimlessly, but find no adventuring to be had. You did happen to find some " +
         randomItem.name +
         " though."

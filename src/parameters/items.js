@@ -223,10 +223,6 @@ const items = [{
         effect: function (entity) {
             entity.hp++;
             messaging.output("You feel a little refreshed.", messaging.msgTypes.itemEffect);
-
-            // if (messaging.canOutput(messaging.msgTypes.itemEffect)) {
-            //     console.log('You feel a little refreshed.');
-            // }
         }
     }
 ];
