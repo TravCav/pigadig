@@ -16,7 +16,7 @@ const outputs = {
   util: 4
 };
 
-const outputTypes = msgTypes.fight | msgTypes.quest | msgTypes.attacks | msgTypes.itemEffects | msgTypes.itemActions;
+const outputTypes = msgTypes.fight | msgTypes.quest | msgTypes.attacks | msgTypes.itemEffect | msgTypes.itemActions;
 const outputMethods = outputs.console;
 
 const canOutput = function (type) {
@@ -56,8 +56,8 @@ exports.itemActions = function (msg) {
   output(msg, msgTypes.itemActions);
 };
 
-exports.itemEffects = function (msg) {
-  output(msg, msgTypes.itemEffects);
+exports.itemEffect = function (msg) {
+  output(msg, msgTypes.itemEffect);
 };
 
 exports.quest = function (msg) {
