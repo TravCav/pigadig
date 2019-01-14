@@ -1,230 +1,99 @@
 let messaging = require('../messaging');
-const items = [{
-        name: "hydrogen",
-        value: 1
+const items = [
+    { name: "apple" },
+    { name: "backpack" },
+    { name: "bamboo" },
+    { name: "bronze ingot",
+        craftTime: 1,
+        dependencies: [{ item: "copper ore", qty: 1 }, { item: "tin ore", qty: 1 }] 
+    },
+    { name: "cake" },
+    { name: "candle" },
+    { name: "candy" },
+    { name: "chip" },
+    { name: "clock" },
+    { name: "coal" },
+    { name: "coffee" },
+    { name: "coin" },
+    { name: "corn" },
+    { name: "copper ore" },
+    { name: "copper ingot",
+        craftTime: 1,
+        dependencies: [{ item: "copper ore", qty: 1 }] 
+    },
+    { name: "cotton" },
+    { name: "covfefe" },
+    { name: "egg" },
+    { name: "feather" },
+    { name: "fish" },
+    { name: "glasses" },
+    { name: "gloves" },
+    { name: "googles" },
+    { name: "hammer" },
+    { name: "hat" },
+    { name: "helium" },
+    { name: "hydrogen" },
+    { name: "iron" },
+    { name: "kitchen sink" },
+    { name: "knife" },
+    {
+        name: "leather",
+        craftTime: 1,
+        dependencies: [{ item: "rawhide", qty: 1 }]
     },
     {
-        name: "helium",
-        value: 1
+        name: "leather armor",
+        craftTime: 1,
+        dependencies: [{ item: "leather", qty: 4 }]
     },
     {
-        name: "fish",
-        value: 1
+        name: "leather boots",
+        craftTime: 1,
+        dependencies: [{ item: "leather", qty: 2 }]
     },
     {
-        name: "apple",
-        value: 1
+        name: "leather helmet",
+        craftTime: 1,
+        dependencies: [{ item: "leather", qty: 1 }]
     },
     {
-        name: "mushroom",
-        value: 1
+        name: "leather pants",
+        craftTime: 1,
+        dependencies: [{ item: "leather", qty: 4 }]
     },
-    {
-        name: "knife",
-        value: 1
-    },
-    {
-        name: "stick",
-        value: 1
-    },
-    {
-        name: "oxygen",
-        value: 1
-    },
-    {
-        name: "coin",
-        value: 1
-    },
-    {
-        name: "vinegar",
-        value: 1
-    },
-    {
-        name: "feather",
-        value: 1
-    },
-    {
-        name: "stone",
-        value: 1
-    },
-    {
-        name: "wood",
-        value: 1
-    },
-    {
-        name: "iron",
-        value: 1
-    },
-    {
-        name: "salt",
-        value: 1
-    },
-    {
-        name: "milk",
-        value: 1
-    },
-    {
-        name: "nitrous oxide",
-        value: 1
-    },
-    {
-        name: "stick",
-        value: 1
-    },
-    {
-        name: "stew",
-        value: 1
-    },
-    {
-        name: "bamboo",
-        value: 1
-    },
-    {
-        name: "egg",
-        value: 1
-    },
-    {
-        name: "backpack",
-        value: 1
-    },
-    {
-        name: "shoe",
-        value: 1
-    },
-    {
-        name: "sword",
-        value: 1
-    },
-    {
-        name: "vest",
-        value: 1
-    },
-    {
-        name: "hat",
-        value: 1
-    },
-    {
-        name: "pie",
-        value: 1
-    },
-    {
-        name: "strawberry",
-        value: 1
-    },
-    {
-        name: "paper",
-        value: 1
-    },
-    {
-        name: "hammer",
-        value: 1
-    },
-    {
-        name: "stick",
-        value: 1
-    },
-    {
-        name: "candle",
-        value: 1
-    },
-    {
-        name: "candy",
-        value: 1
-    },
-    {
-        name: "putty",
-        value: 1
-    },
-    {
-        name: "chip",
-        value: 1
-    },
-    {
-        name: "corn",
-        value: 1
-    },
-    {
-        name: "cotton",
-        value: 1
-    },
-    {
-        name: "wig",
-        value: 1
-    },
-    {
-        name: "lipstick",
-        value: 1
-    },
-    {
-        name: "tinder",
-        value: 1
-    },
-    {
-        name: "razor",
-        value: 1
-    },
-    {
-        name: "kitchen sink",
-        value: 1
-    },
-    {
-        name: "coffee",
-        value: 1
-    },
-    {
-        name: "covfefe",
-        value: 1
-    },
-    {
-        name: "spoon",
-        value: 1
-    },
-    {
-        name: "glasses",
-        value: 1
-    },
-    {
-        name: "googles",
-        value: 1
-    },
-    {
-        name: "gloves",
-        value: 1
-    },
-    {
-        name: "watch",
-        value: 1
-    },
-    {
-        name: "cake",
-        value: 1
-    },
-    {
-        name: "clock",
-        value: 1
-    },
-    {
-        name: "string",
-        value: 1
-    },
+    { name: "lipstick" },
+    { name: "milk" },
+    { name: "mushroom" },
+    { name: "nitrous oxide" },
+    { name: "oxygen" },
+    { name: "paper" },
+    { name: "pie" },
+    { name: "putty" },
+    { name: "razor" },
+    { name: "rawhide" },
+    { name: "salt" },
+    { name: "shoe" },
+    { name: "spoon" },
+    { name: "stew" },
+    { name: "stick" },
+    { name: "stick" },
+    { name: "stone" },
+    { name: "strawberry" },
+    { name: "string" },
+    { name: "sword" },
+    { name: "tin ore" },
+    { name: "tinder" },
+    { name: "vest" },
+    { name: "vinegar" },
     {
         name: "water",
         craftTime: 10,
-        value: 3,
-        dependencies: [{
-                item: "hydrogen",
-                qty: 2
-            },
-            {
-                item: "oxygen",
-                qty: 1
-            }
-        ],
-        effect: function (entity) {
-            entity.hp++;
-            messaging.output("You feel a little refreshed.", messaging.msgTypes.itemEffect);
-        }
-    }
+        dependencies: [{ item: "hydrogen", qty: 2 }, { item: "oxygen", qty: 1 }],
+        effect: function (entity) { entity.hp++; messaging.output("You feel a little refreshed.", messaging.msgTypes.itemEffect); }
+    },
+    { name: "watch" },
+    { name: "wig" },
+    { name: "wood" },
 ];
 
 module.exports.items = items;
