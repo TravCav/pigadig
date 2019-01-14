@@ -22,6 +22,16 @@ const items = [
         dependencies: [{ item: "copper ore", qty: 1 }] 
     },
     { name: "cotton" },
+    {
+        name: "cloth",
+        craftTime: 1,
+        dependencies: [{ item: "cotton", qty: 2 }]
+    },
+    {
+        name: "cotton shirt",
+        craftTime: 1,
+        dependencies: [{ item: "cloth", qty: 2 }]
+    },
     { name: "covfefe" },
     { name: "egg" },
     { name: "feather" },
@@ -94,6 +104,27 @@ const items = [
     { name: "watch" },
     { name: "wig" },
     { name: "wood" },
+    {
+        name: "wooden shield",
+        craftTime: 1,
+        dependencies: [{ item: "wood", qty: 2 }]
+    },
+    {
+        name: "wooden sword",
+        craftTime: 1,
+        dependencies: [{ item: "wood", qty: 1 }]
+    },
+    { name: "wool" },
+    {
+        name: "wool cloth",
+        craftTime: 1,
+        dependencies: [{ item: "wool", qty: 1 }]
+    },
+    {
+        name: "wool coat",
+        craftTime: 1,
+        dependencies: [{ item: "wool cloth", qty: 5 }]
+    },
 ];
 
 module.exports.items = items;
