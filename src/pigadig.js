@@ -64,7 +64,7 @@ function DoAdventure() {
   // // Items.GiveItems(player, 'water', 1);
   // // player.DeconstructItem('water');
 
-  console.log("Finished with: \r\n " + JSON.stringify(player, null, 4));
+  console.log("Finished with: \r\n " , player);
   messaging.output("Farewell");
 }
 
