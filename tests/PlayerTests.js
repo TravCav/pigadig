@@ -23,10 +23,31 @@ describe('Player', function () {
         
         Items.GiveItems(player, 'wood', 1);
         
-        var success = player.Drink("wood");
+        var success = player.Drink("strawberry");
         assert.equal(success,false);
     });
 
+    it('Can eat edible items', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+        
+        Items.GiveItems(player, 'strawberry', 1);
+        
+        var success = player.Eat("strawberry");
+        assert.equal(success,true);
+    });
+
+    it('Cannot eat inedible items', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+        
+        Items.GiveItems(player, 'water', 1);
+        
+        var success = player.Eat("water");
+        assert.equal(success,false);
+    });
 
     it('Can fight an entity', function () {
         let player = new Entity.Entity({

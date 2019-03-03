@@ -67,6 +67,19 @@ class Entity {
     return false;
   }
 
+  Eat(itemName) {
+    if (this.HasItems(itemName, 1)) {
+      const item = Items.LookupItem(itemName);
+      if (item.edible == true){
+        this.RemoveItemsFromInventory(itemName, 1);
+        messaging.output("You ate the " + item.name);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   Equip(itemName, equipPlace) {
     if (this.HasItems(itemName, 1)) {
       const item = Items.LookupItem(itemName);
