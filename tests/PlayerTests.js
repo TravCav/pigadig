@@ -4,6 +4,30 @@ let Items = require('../src/ItemActions');
 let action = require('../src/Actions');
 
 describe('Player', function () {
+
+    it('Can drink water', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+        
+        Items.GiveItems(player, 'water', 1);
+        
+        var success = player.Drink("water");
+        assert.equal(success,true);
+    });
+
+    it('Cannot drink non drinkable item', function () {
+        let player = new Entity.Entity({
+            name: "testplayer"
+        });
+        
+        Items.GiveItems(player, 'wood', 1);
+        
+        var success = player.Drink("wood");
+        assert.equal(success,false);
+    });
+
+
     it('Can fight an entity', function () {
         let player = new Entity.Entity({
             name: "testplayer"
