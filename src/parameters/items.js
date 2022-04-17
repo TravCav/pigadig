@@ -99,7 +99,7 @@ const items = [
         craftTime: 10,
         dependencies: [{ item: "hydrogen", qty: 2 }, { item: "oxygen", qty: 1 }],
         drinkable: true,
-        effect: function (entity) { entity.hp++; messaging.output("You feel a little refreshed.", messaging.msgTypes.itemEffect); }
+        ////effect: function (entity) { entity.hp++; messaging.output("You feel a little refreshed.", messaging.msgTypes.itemEffect); }
     },
     { name: "watch" },
     { name: "wig" },

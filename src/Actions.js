@@ -2,46 +2,46 @@ let Items = require('./ItemActions');
 let Entity = require('./Entity');
 let messaging = require('./messaging');
 
-const action = [{
-        name: "use"
-    },
-    {
-        name: "combine"
-    },
-    {
-        name: "eat"
-    },
-    {
-        name: "discard"
-    },
-    {
-        name: "give"
-    },
-    {
-        name: "steal"
-    },
-    {
-        name: "cook"
-    },
-    {
-        name: "throw"
-    },
-    {
-        name: "sell"
-    },
-    {
-        name: "trade"
-    },
-    {
-        name: "drink"
-    },
-    {
-        name: "equip"
-    },
-    {
-        name: "drink"
-    },
-];
+// // const action = [{
+// //         name: "use"
+// //     },
+// //     {
+// //         name: "combine"
+// //     },
+// //     {
+// //         name: "eat"
+// //     },
+// //     {
+// //         name: "discard"
+// //     },
+// //     {
+// //         name: "give"
+// //     },
+// //     {
+// //         name: "steal"
+// //     },
+// //     {
+// //         name: "cook"
+// //     },
+// //     {
+// //         name: "throw"
+// //     },
+// //     {
+// //         name: "sell"
+// //     },
+// //     {
+// //         name: "trade"
+// //     },
+// //     {
+// //         name: "drink"
+// //     },
+// //     {
+// //         name: "equip"
+// //     },
+// //     {
+// //         name: "drink"
+// //     },
+// // ];
 
 //action taken against an entity in an encounter
 function Fight(entity1, entity2) {
