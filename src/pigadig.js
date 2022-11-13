@@ -1,5 +1,5 @@
 
-//const InteractiveMode = require('./ConsoleInterface');
+const InteractiveMode = require('./ConsoleInterface');
 
-DoAdventure();
-//InteractiveMode.InteractiveMode();
+//DoAdventure();
+InteractiveMode.InteractiveMode();

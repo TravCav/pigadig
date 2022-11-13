@@ -40,7 +40,7 @@ function InteractiveMode() {
                 messaging.output('What do you want to do?');
                 break;
             case 'fight':
-                Action.FightSomething();
+                Action.FightSomething(player, "kitchen");
                 messaging.output('You can Adventure, Quest, Fight, or Quit.');
                 messaging.output('What do you want to do?');
                 break;
