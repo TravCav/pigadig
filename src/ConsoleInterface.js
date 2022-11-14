@@ -30,12 +30,12 @@ function InteractiveMode() {
         messaging.output(`You chose to ${line}`);
         switch (line.toLowerCase()) {
             case 'adventure':
-                Action.DoAdventure();
+                Action.DoAdventure(player);
                 messaging.output('You can Adventure, Quest, Fight, or Quit.');
                 messaging.output('What do you want to do?');
                 break;
             case 'quest':
-                Action.DeliveryQuest();
+                Action.DeliveryQuest(player);
                 messaging.output('You can Adventure, Quest, Fight, or Quit.');
                 messaging.output('What do you want to do?');
                 break;
@@ -49,7 +49,7 @@ function InteractiveMode() {
                 rl.close();
                 break;
             default:
-                Action.WanderAbout();
+                Action.WanderAbout(player);
                 messaging.output('You can Adventure, Quest, Fight, or Quit.');
                 messaging.output('What do you want to do?');
                 break;
