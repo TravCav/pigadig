@@ -54,6 +54,7 @@ function InteractiveMode() {
                 messaging.output('What do you want to do?');
                 break;
         }
+	    player.ShowStatus();
     });
 
 

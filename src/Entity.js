@@ -22,7 +22,7 @@ class Entity {
 
   Attack(entity, attack) {
     let dmg = attack.damage + this.str;
-    messaging.attacks(this.name + " attacks " + entity.name + " with " + attack.name + " for " + dmg + " damage.");
+    messaging.attacks(" " + this.name + " attacks " + entity.name + " with " + attack.name + " for " + dmg + " damage.");
 
     this.timeSpent++;
     entity.TakeDamage(dmg);
@@ -194,6 +194,11 @@ class Entity {
       }
     }
   }
+
+	ShowStatus() {
+		messaging.output(" -hp: " + this.maxHp + "\\" + this.hp.toFixed(2));
+		messaging.output(" -str: " + this.str.toFixed(2));
+	}
 
   TakeDamage(damage) {
     this.hp -= damage;
