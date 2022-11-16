@@ -1,0 +1,14 @@
+goto <area>
+	list of entities and available actions
+		fight <entity>
+			list of available actions/attacks
+			after defeat
+				list of available actions: loot
+
+
+trade <entity>
+	list of available trades
+		buy <item>
+		sell <item>
+
+craft <item>
