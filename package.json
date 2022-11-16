@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/travcav/pigadig#readme",
   "dependencies": {
-    "mocha": "^9.2.2",
-    "typescript": "^4.8.4"
+    "mocha": "^9.2.2"
   }
 }
