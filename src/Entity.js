@@ -54,25 +54,12 @@ class Entity {
     }
   }
 
-  Drink(itemName) {
+  Consume(itemName) {
     if (this.HasItems(itemName, 1)) {
       const item = Items.LookupItem(itemName);
-      if (item.drinkable == true){
+      if (item.consumable == true){
         this.RemoveItemsFromInventory(itemName, 1);
-        messaging.output("You drank the " + item.name);
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  Eat(itemName) {
-    if (this.HasItems(itemName, 1)) {
-      const item = Items.LookupItem(itemName);
-      if (item.edible == true){
-        this.RemoveItemsFromInventory(itemName, 1);
-        messaging.output("You ate the " + item.name);
+        messaging.output("You consumed the " + item.name);
         return true;
       }
     }
@@ -221,28 +208,28 @@ class Entity {
     return false;
   }
 
-  UseItem(itemName) {
-    let itemUsed = false;
-    const item = Items.LookupItem(itemName);
-    if (item == null) {
-      return false;
-    }
+  // UseItem(itemName) {
+  //   let itemUsed = false;
+  //   const item = Items.LookupItem(itemName);
+  //   if (item == null) {
+  //     return false;
+  //   }
 
-    if (this.HasItems(item.name, 1)) {
-      if (item.effect == undefined) {
-        messaging.output(itemName + ' has no effect.');
-        return false;
-      }
+  //   if (this.HasItems(item.name, 1)) {
+  //     if (item.effect == undefined) {
+  //       messaging.output(itemName + ' has no effect.');
+  //       return false;
+  //     }
 
-      messaging.output("You used " + item.name + ".");
-      item.effect(this);
-      this.RemoveItemsFromInventory(item.name, 1);
-      itemUsed = true;
+  //     messaging.output("You used " + item.name + ".");
+  //     item.effect(this);
+  //     this.RemoveItemsFromInventory(item.name, 1);
+  //     itemUsed = true;
 
-    }
+  //   }
 
-    return itemUsed;
-  }
+  //   return itemUsed;
+  // }
 }
 
 
